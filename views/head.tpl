@@ -1,5 +1,5 @@
 {{define "head"}}
-    	<title>Infor-You-Mation</title>
+    	<title>InforYouMation</title>
     	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 		<style type="text/css">
