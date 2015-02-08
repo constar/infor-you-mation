@@ -6,11 +6,9 @@ import (
 	_ "inforyoumation/routers"
 )
 
-func init() {
-	flag.Parse()
-}
-
 func main() {
+	flag.Parse()
 	//beego.SessionOn = true
+	//beego.SetStaticPath("/publish", "statics")
 	beego.Run()
 }

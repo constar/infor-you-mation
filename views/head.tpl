@@ -1,6 +1,8 @@
 {{define "head"}}
-    	<title>InforYouMation</title>
+    	<title>邮订阅</title>
     	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+        <link rel="shortcut icon" href="/static/img/favicon.png" />
 
 		<style type="text/css">
 			body {

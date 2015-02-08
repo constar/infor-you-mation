@@ -2,6 +2,7 @@
 <head>
         
     	<title>邮订阅</title>
+        <link rel="shortcut icon" href="/static/img/favicon.png" />
     	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
 	<style type="text/css">
