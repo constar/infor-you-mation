@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"github.com/golang/glog"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 )
@@ -55,26 +56,22 @@ func RegisterUser(username string, passwd string) error {
 	return c.Insert(&u)
 }
 
-func ValidateUser(user User) error {
-	return nil
+func ValidateUser(username string, passwd string) bool {
+	query := bson.M{"username": username, "password": passwd}
+	c := connOption.dbSess.DB(connOption.dbName).C(userColName)
+	cnt, err := c.Find(query).Count()
+	if err != nil {
+		glog.Error(err)
+		return false
+	}
+	if cnt == 1 {
+		return true
+	} else {
+		glog.Error("username: ", username, " password ", passwd, " not found.")
+		return false
+	}
 }
 
-//func getOrm() beedb.Model {
-//	db, err := sql.Open("mysql", "inforyoumation@tcp(127.0.0.1:3306)/inforyoumation?charset=utf8")
-//	if err != nil {
-//		panic(err)
-//	}
-//	orm := beedb.New(db)
-//	return orm
-//}
-//
-//func RegisterUser(user User) error {
-//	orm := getOrm()
-//	glog.Info("RegisterUser ", user)
-//	err := orm.Save(&user)
-//	return err
-//}
-//
 //func ValidateUser(user User) error {
 //	orm := getOrm()
 //	var u User

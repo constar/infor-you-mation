@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	"github.com/golang/glog"
+	"github.com/yanyiwu/igo"
 	"inforyoumation/models"
 )
 
@@ -17,18 +18,14 @@ func (mc *LoginController) Get() {
 }
 
 func (mc *LoginController) Post() {
-	//sess := mc.StartSession()
-	var user models.User
 	inputs := mc.Input()
-	user.Username = inputs.Get("username")
-	user.Password = inputs.Get("password")
-	err := models.ValidateUser(user)
-	if err == nil {
-		//sess.Set("username", user.Username)
-		glog.Info("username:", user.Username, " login success!")
+	username := inputs.Get("username")
+	passwd := inputs.Get("password")
+	passwd = igo.GetMd5String(passwd)
+	if models.ValidateUser(username, passwd) {
+		glog.Info("username:", username, " login success!")
 		mc.TplNames = "index.tpl"
 	} else {
-		glog.Error(err)
-		mc.TplNames = "error.tpl"
+		mc.TplNames = "loginfailure.tpl"
 	}
 }

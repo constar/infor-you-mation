@@ -58,7 +58,7 @@
             </input>
         </p>
         <p>密码:
-             <input id="inputpwd";input type="password" name="pwd">
+             <input id="inputpwd";input type="password" name="password">
             </input>
         </p>
         <p>
