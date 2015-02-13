@@ -21,7 +21,7 @@ func (mc *LoginController) Post() {
 	var user models.User
 	inputs := mc.Input()
 	user.Username = inputs.Get("username")
-	user.Pwd = inputs.Get("pwd")
+	user.Password = inputs.Get("password")
 	err := models.ValidateUser(user)
 	if err == nil {
 		//sess.Set("username", user.Username)

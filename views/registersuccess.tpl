@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>注册</title>
+<title>登录</title>
 <style type="text/css">
 body {
 	display: block;
@@ -82,7 +82,7 @@ body {
 	height: 400px;
 	width: 50%;
 }
-#logo{
+#gif{
 	width:300px;
 	height:300px;
 	margin-top:50px;
@@ -91,39 +91,19 @@ body {
 	margin-right:16%;
 	position:absolute;
 }
-#formbox{
-	width:300px;
-	height:300px;
-	margin-top:50px;
-	margin-bottom:50px;
-	margin-left:16%;
-	margin-right:16%;
+#registersuccess{
+	width:248px;
+	height:40px;
+	line-height:40px;
+	margin-top:130px;
+	margin-bottom:130px;
+	margin-left:50px;
+	margin-right:50px;
+	padding:50px;
+	font-size:20px;
 	position:absolute;
 }
-#registerform {
-	display: inline;
-	position: relative;
-	float: left;
-	height: 200px;
-	width: 300px;
-	text-align: center;
-	padding-top: 50px;
-	padding-bottom:50;
-	margin: 0px;
-	line-height:50px;
-} 
-p {
-margin:0px;
-}
-#username{
-	margin-left:15px;
-}
-#inputpwd{
-	margin-left:32px;
-}
-.button{
-	font-size:18px;
-}
+
 .footer {
 	height:39px;
 	width: 100%;
@@ -165,32 +145,13 @@ margin:0px;
 <div class="content">
      <div class="centerarea">
           <div class="card" style="position:absolute;left:0px;top:0px">
-              <div id="logo">  <img src="http://7viirv.com1.z0.glb.clouddn.com/ulogo.png" width="300px" height="300px" alt="邮·订阅"></img>
+              <div id="gif">  <img src="http://7viirv.com1.z0.glb.clouddn.com/uhi.gif" width="300px" height="300px" alt="邮·订阅"></img>
               </div>
          </div>
          <div class="card" style="position:absolute;left:50%;top:0px">
-             <div id="formbox">
-                  <form action="/register" method="post"  id="registerform">
-        <p>用户名:
-            <input type="text" id="username" name="username">
-            </input>
-        </p>
-        <p>密码:
-             <input id="inputpwd"  type="password" name="password">
-            </input>
-        </p>
-        <p>确认密码:
-             <input id="confirmpwd" type="password" name="checkpassword" >
-            </input>
-        </p>
-        <p>
-            <input class="button" type="submit" id="confirm" value="确定">
-            </input>  
-      
-            <input class="button" type="reset" id="reset" value="重置">
-            </input>    
-       </p>
-      </form>
+             <div id="registersuccess">
+               注册成功
+               页面即将跳转...
              </div>
      </div>
 </div>

@@ -18,12 +18,13 @@ func (rc *RegisterController) Post() {
 	var user models.User
 	inputs := rc.Input()
 	user.Username = inputs.Get("username")
-	user.Pwd = inputs.Get("pwd")
-	err := models.RegisterUser(user)
+	user.Password = inputs.Get("password")
+	glog.Info("user:", user.Username, "password:", user.Password)
+	err := models.RegisterUser(user.Username, user.Password)
 	if err == nil {
-		rc.TplNames = "success.tpl"
+		rc.TplNames = "registersuccess.tpl"
 	} else {
 		glog.Error(err)
-		rc.TplNames = "error.tpl"
+		rc.TplNames = "registerfailure.tpl"
 	}
 }
