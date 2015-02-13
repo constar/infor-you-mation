@@ -26,7 +26,7 @@ func (mc *LoginController) Post() {
 	if err == nil {
 		//sess.Set("username", user.Username)
 		glog.Info("username:", user.Username, " login success!")
-		mc.TplNames = "success.tpl"
+		mc.TplNames = "index.tpl"
 	} else {
 		glog.Error(err)
 		mc.TplNames = "error.tpl"
