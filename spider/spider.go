@@ -2,8 +2,8 @@ package main
 
 import (
 	"flag"
-	"github.com/aszxqw/igo"
 	"github.com/golang/glog"
+	"github.com/yanyiwu/igo"
 	"sync"
 	"time"
 )
@@ -26,7 +26,7 @@ func spiderRunner(url string) {
 			for _, item := range msgs {
 				//glog.Info(item.GetTitle())
 				//glog.Info(item.GetUrl())
-				err := Insert(item.GetTitle(), item.GetContent(), item.GetUrl())
+				err := Insert("feeds", item.GetTitle(), item.GetContent(), item.GetUrl())
 				if err == nil {
 					glog.Info(item.GetTitle(), item.GetUrl())
 				} else {
@@ -41,7 +41,9 @@ func spiderRunner(url string) {
 
 func main() {
 	flag.Parse()
-	Connect("127.0.0.1", "test1", "test2")
+	kwDisp := NewKeywordDispatcher()
+	kwDisp.Insert("实习")
+	Connect("127.0.0.1", "inforyoumation")
 	iter, err := igo.NewLineIterator("urls")
 	if err != nil {
 		glog.Fatal(err)
