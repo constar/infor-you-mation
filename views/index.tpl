@@ -265,35 +265,33 @@ a:hover{
 <div class="content"> 
 
   <div class="centerarea">
-     <div class="card" style="position:absolute;left:0px;top:0px">
+     {{range .Cards}}
+     <div class="card" style="">
        <div class="cardmain">
           <div class="keyword">
-             <div align="center">KEYWORD</div>
+             <div align="center">{{.Topic}}</div>
           </div>
           <div class="cardtitle">
             <ul class="titlelist">
-              <li class="singletitle">恭喜邮订阅成功上线
+              {{range .Feeds}}
+              <li class="singletitle">
+                  {{.Title}}
               </li>
-              <li class="singletitle"> 
-              </li>
-              <li class="singletitle"> 
-              </li>
-              <li class="singletitle"> 
-              </li>
-              <li class="singletitle"> 
-              </li> 
+             {{end}}
              </ul>
           </div>
        </div>
      </div>
-     <div class="card" style="position:absolute;left:50%;top:0px">
+     {{end}}
+     <!--
+     <div class="card" style="">
        <div class="cardmain">
           <div class="keyword">
             <div align="center">KEYWORD</div>
            </div>
           <div class="cardtitle">
               <ul class="titlelist">
-                <li class="singletitle">恭喜邮订阅成功上线
+                <li class="singletitle">
                 </li>
                 <li class="singletitle"> 
                 </li>
@@ -307,7 +305,7 @@ a:hover{
           </div>
         </div>
      </div>
-     <div class="card" style="position:absolute;left:0px;top:400px">
+     <div class="card" style="">
         <div class="cardmain">
            <div class="keyword">
              <div align="center">KEYWORD</div>
@@ -428,9 +426,10 @@ a:hover{
                  <li class="singletitle"> 
                  </li>   
                </ul>
-             </div>
-          </div>
-        </div>
+            </div>
+         </div>
+      </div>
+      -->
    </div>
  </div>
 
