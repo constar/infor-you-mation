@@ -14,15 +14,19 @@ type ByrDataItem struct {
 	UrlMd5  string
 }
 
-type ConnectOption struct {
+type MongoClient struct {
 	host   string
 	dbSess *mgo.Session
 	dbName string
 }
 
 var (
-	connOption ConnectOption
+	connOption MongoClient
 )
+
+func init() {
+	Connect(MongoDBHost, DBName)
+}
 
 func Connect(host string, dbName string) error {
 	var err error
@@ -40,16 +44,17 @@ func Insert(
 	colName string,
 	title string,
 	content string,
-	url string) error {
+	url string) (bson.ObjectId, error) {
 	c := connOption.dbSess.DB(connOption.dbName).C(colName)
 
+	oid := bson.NewObjectId()
 	bdi := ByrDataItem{
-		bson.NewObjectId(),
+		oid,
 		title,
 		content,
 		url,
 		igo.GetMd5String(url),
 	}
 
-	return c.Insert(&bdi)
+	return oid, c.Insert(&bdi)
 }

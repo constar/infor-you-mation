@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/golang/glog"
 	"github.com/yanyiwu/igo"
 	"gopkg.in/mgo.v2"
@@ -8,9 +9,21 @@ import (
 	"sync"
 )
 
-const (
-	KeywordCol = "keyword"
-)
+var dispatcher *KeywordDispatcher
+
+func init() {
+	dispatcher = NewKeywordDispatcher()
+	if dispatcher == nil {
+		panic("NewKeywordDispatcher failed")
+	}
+	for i := 0; i < len(Keywords); i++ {
+		dispatcher.Insert(Keywords[i])
+	}
+}
+
+func Dispatch(text string, feedid bson.ObjectId) {
+	dispatcher.Dispatch(text, feedid)
+}
 
 type KeywordDispatcher struct {
 	trie   *igo.Trie
@@ -22,6 +35,10 @@ type KeywordColItem struct {
 	Id      bson.ObjectId "_id"
 	Keyword string
 	Feedid  bson.ObjectId
+}
+
+func (kci *KeywordColItem) String() string {
+	return fmt.Sprintf("%v %s %v", kci.Id, kci.Keyword, kci.Feedid)
 }
 
 func NewKeywordDispatcher() *KeywordDispatcher {
@@ -49,20 +66,20 @@ func (kw *KeywordDispatcher) Dispatch(text string, feedid bson.ObjectId) {
 	defer kw.lock.RUnlock()
 	res := kw.trie.Find(text)
 	for i := 0; i < len(res); i++ {
-		glog.Info(res[i].Pattern)
 		err := kw.dispatchOne(res[i].Pattern, feedid)
 		if err != nil {
-			glog.Error(err)
+			glog.Info(err)
 		}
 	}
 }
 
 func (kw *KeywordDispatcher) dispatchOne(keyword string, feedid bson.ObjectId) error {
-	c := kw.dbSess.DB(MongoDBHost).C(KeywordCol)
+	c := kw.dbSess.DB(DBName).C(KeywordCol)
 	kci := KeywordColItem{
 		bson.NewObjectId(),
 		keyword,
 		feedid,
 	}
+	glog.Infof("insert %s to %s.%s", kci, DBName, KeywordCol)
 	return c.Insert(&kci)
 }

@@ -24,11 +24,10 @@ func spiderRunner(url string) {
 			glog.Error("Parse failed")
 		} else {
 			for _, item := range msgs {
-				//glog.Info(item.GetTitle())
-				//glog.Info(item.GetUrl())
-				err := Insert("feeds", item.GetTitle(), item.GetContent(), item.GetUrl())
+				oid, err := Insert("feeds", item.GetTitle(), item.GetContent(), item.GetUrl())
 				if err == nil {
-					glog.Info(item.GetTitle(), item.GetUrl())
+					glog.Info(item.GetTitle(), " ", item.GetUrl())
+					Dispatch(item.GetTitle(), oid)
 				} else {
 					glog.V(2).Info(err)
 				}
@@ -41,15 +40,8 @@ func spiderRunner(url string) {
 
 func main() {
 	flag.Parse()
-	kwDisp := NewKeywordDispatcher()
-	kwDisp.Insert("实习")
-	Connect("127.0.0.1", "inforyoumation")
-	iter, err := igo.NewLineIterator("urls")
-	if err != nil {
-		glog.Fatal(err)
-	}
-	for iter.HasNext() {
-		url := iter.Next()
+	for i := 0; i < len(RssUrls); i++ {
+		url := RssUrls[i]
 		wg.Add(1)
 		go spiderRunner(url)
 		glog.Info(url)
