@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"github.com/astaxie/beego"
-	_ "inforyoumation/routers"
+	_ "github.com/yanyiwu/infor-you-mation/routers"
 )
 
 func main() {

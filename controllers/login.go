@@ -4,7 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	"github.com/golang/glog"
 	"github.com/yanyiwu/igo"
-	"inforyoumation/models"
+	"github.com/yanyiwu/infor-you-mation/models"
 )
 
 type LoginController struct {

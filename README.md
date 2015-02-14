@@ -25,7 +25,7 @@ PRIMARY KEY(id)
 
 ```
 go build
-./inforyoumation
+./infor-you-mation
 ```
 
 ## Contact
