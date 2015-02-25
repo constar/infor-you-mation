@@ -48,7 +48,7 @@
 </head>
 <body>
 <h2 align="center" id="welcome">欢迎登录 邮·订阅</h2> 
-    <div id="divtable">     
+<div id="divtable">     
     <div id="apDivlogo">
         <img src="http://7viirv.com1.z0.glb.clouddn.com/ulogo.png" width="300px" height="296px" alt="邮·订阅"></img>
     </div>
@@ -58,7 +58,7 @@
             </input>
         </p>
         <p>密码:
-             <input id="inputpwd";input type="password" name="password">
+            <input id="inputpwd";input type="password" name="password">
             </input>
         </p>
         <p>

@@ -9,7 +9,6 @@ body {
 	padding: 0px;
 	background-color: rgba(238, 233, 233, 0.97);
 	width:100%;
-	height:2000px;
 }
 .header {
 	height: 50px;
@@ -122,7 +121,6 @@ a:hover{
 .content {
 	margin: 0px;
 	padding: 0px;
-	height: 1850px;
 	width: 100%;
 	position: relative;
 	top:90px;
@@ -142,12 +140,10 @@ a:hover{
 	margin: 0px;
 	padding: 0px;
 	float: left;
-	height: 400px;
 	width: 50%;
 }
 .cardmain {
 	padding: 0px;
-	height: 90%;
 	width: 92%;
 	margin-top: 0px;
 	margin-right: 4%;
@@ -175,7 +171,6 @@ a:hover{
 }
 .cardtitle {
 	position: relative;
-	height: 83%;
 	width: 90%;
 	padding-top: 0px;
 	padding-right: 0px;
@@ -187,7 +182,6 @@ a:hover{
 	background-color: rgba(156, 207, 158, 0.44);
 }
 .titlelist {
-	height: 100%;
 	width: 100%;
 	position: relative;
 	padding:0px;
@@ -200,8 +194,6 @@ a:hover{
 }
 .singletitle {
 	position: relative;
-	height: 60px;
-	line-height:60px;
 	width: 100%;
 	margin:0px;
 	padding:0px;
@@ -215,8 +207,8 @@ a:hover{
 	height:55px;
 	width: 100%;
 	background-color:rgba(248, 252, 247, 0.23);
-	top:1940px;
-	position:absolute;
+	/*top:1940px;
+	position:absolute;*/
 	border-top-style:solid;
 	border-top-width:5px;
 	border-top-color:rgba(146, 156, 144, 0.31);
@@ -242,7 +234,8 @@ a:hover{
 <body>
 <div class="header">
     <div class="top-header">
-        <div id="divlogo"><img src="http://7viirv.com1.z0.glb.clouddn.com/ulogo-01.png" width="193" height="50" alt="logo">
+        <div id="divlogo">
+            <img src="http://7viirv.com1.z0.glb.clouddn.com/ulogo-01.png" width="193" height="50" alt="logo">
         </div>
         <div id="iconmenu">
          <ul id="uliconmenu">
@@ -266,7 +259,7 @@ a:hover{
 
   <div class="centerarea">
      {{range .Cards}}
-     <div class="card" style="">
+     <div class="card">
        <div class="cardmain">
           <div class="keyword">
              <div align="center">{{.Topic}}</div>
@@ -275,7 +268,7 @@ a:hover{
             <ul class="titlelist">
               {{range .Feeds}}
               <li class="singletitle">
-                  {{.Title}}
+                  <a href="{{.Url}}" target="_blank">{{.Title}}</a>
               </li>
              {{end}}
              </ul>
@@ -283,153 +276,6 @@ a:hover{
        </div>
      </div>
      {{end}}
-     <!--
-     <div class="card" style="">
-       <div class="cardmain">
-          <div class="keyword">
-            <div align="center">KEYWORD</div>
-           </div>
-          <div class="cardtitle">
-              <ul class="titlelist">
-                <li class="singletitle">
-                </li>
-                <li class="singletitle"> 
-                </li>
-                <li class="singletitle"> 
-                </li>
-                <li class="singletitle"> 
-                </li>
-                <li class="singletitle"> 
-                </li>    
-              </ul>
-          </div>
-        </div>
-     </div>
-     <div class="card" style="">
-        <div class="cardmain">
-           <div class="keyword">
-             <div align="center">KEYWORD</div>
-           </div>
-           <div class="cardtitle">
-              <ul class="titlelist">
-                <li class="singletitle">恭喜邮订阅成功上线
-                </li>
-                <li class="singletitle"> 
-                </li>
-                <li class="singletitle"> 
-                </li>
-                <li class="singletitle"> 
-                </li>
-                <li class="singletitle"> 
-                </li>            
-              </ul>
-            </div>
-         </div>
-      </div>
-      <div class="card" style="position:absolute;left:50%;top:400px">
-         <div class="cardmain">
-            <div class="keyword">
-              <div align="center">KEYWORD</div>
-             </div>
-          <div class="cardtitle">
-              <ul class="titlelist">
-                <li class="singletitle">恭喜邮订阅成功上线
-                </li>
-                <li class="singletitle"> 
-                </li>
-                <li class="singletitle"> 
-                </li>
-                <li class="singletitle"> 
-                </li>
-                <li class="singletitle"> 
-                </li>               
-             </ul>
-           </div>
-         </div>
-       </div>
-       <div class="card" style="position:absolute;left:0px;top:800px">
-          <div class="cardmain">
-            <div class="keyword">
-              <div align="center">KEYWORD</div>
-            </div>
-            <div class="cardtitle">
-              <ul class="titlelist">
-                 <li class="singletitle">恭喜邮订阅成功上线</li>
-                 <li class="singletitle"> 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>    
-              </ul>
-           </div>
-         </div>
-      </div>
-      <div class="card" style="position:absolute;left:50%;top:800px">
-         <div class="cardmain">
-            <div class="keyword">
-              <div align="center">KEYWORD</div>
-            </div>
-            <div class="cardtitle">
-              <ul class="titlelist">
-                 <li class="singletitle">恭喜邮订阅成功上线 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>
-                  <li class="singletitle"> 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>   
-               </ul>
-             </div>
-          </div>
-        </div>
-         <div class="card" style="position:absolute;left:0px;top:1200px">
-          <div class="cardmain">
-            <div class="keyword">
-              <div align="center">KEYWORD</div>
-            </div>
-            <div class="cardtitle">
-              <ul class="titlelist">
-                 <li class="singletitle">恭喜邮订阅成功上线</li>
-                 <li class="singletitle"> 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>    
-              </ul>
-           </div>
-         </div>
-      </div>
-      <div class="card" style="position:absolute;left:50%;top:1200px">
-         <div class="cardmain">
-            <div class="keyword">
-              <div align="center">KEYWORD</div>
-            </div>
-            <div class="cardtitle">
-              <ul class="titlelist">
-                 <li class="singletitle">恭喜邮订阅成功上线 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>
-                  <li class="singletitle"> 
-                 </li>
-                 <li class="singletitle"> 
-                 </li>   
-               </ul>
-            </div>
-         </div>
-      </div>
-      -->
    </div>
  </div>
 

@@ -24,6 +24,7 @@ type Card struct {
 
 type Feed struct {
 	Title string
+	Url   string
 }
 
 const FeedsLimit = 5
@@ -61,7 +62,7 @@ func (mc *LoginController) getCardByTopic(topic string) *Card {
 			glog.Error("feeds illegal!!!")
 			return nil
 		}
-		feed := Feed{feeds[0].Title}
+		feed := Feed{feeds[0].Title, feeds[0].Url}
 		c.Feeds = append(c.Feeds, &feed)
 	}
 	return &c
