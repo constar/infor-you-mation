@@ -6,6 +6,7 @@ import (
 	"github.com/yanyiwu/igo"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	"strings"
 	"sync"
 )
 
@@ -17,7 +18,8 @@ func init() {
 		panic("NewKeywordDispatcher failed")
 	}
 	for i := 0; i < len(Keywords); i++ {
-		dispatcher.Insert(Keywords[i])
+		k := strings.ToLower(Keywords[i])
+		dispatcher.Insert(k)
 	}
 }
 
@@ -64,6 +66,7 @@ func (kw *KeywordDispatcher) Insert(word string) {
 func (kw *KeywordDispatcher) Dispatch(text string, feedid bson.ObjectId) {
 	kw.lock.RLock()
 	defer kw.lock.RUnlock()
+	text = strings.ToLower(text)
 	res := kw.trie.Find(text)
 	for i := 0; i < len(res); i++ {
 		err := kw.dispatchOne(res[i].Pattern, feedid)

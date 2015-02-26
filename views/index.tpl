@@ -136,11 +136,14 @@ a:hover{
 	position: relative;
 	color: #666;
 }
+.cardflow {
+    float: left;
+    width: 50%;  
+}
 .card {
 	margin: 0px;
 	padding: 0px;
-	float: left;
-	width: 50%;
+    width: 100%;
 }
 .cardmain {
 	padding: 0px;
@@ -239,8 +242,8 @@ a:hover{
         </div>
         <div id="iconmenu">
          <ul id="uliconmenu">
-           <li><a href="#">退出</a></li>
-           <li><a href="#">设置</a></li>
+           <li><a href="/register">注册</a></li>
+           <li><a href="/login">登录</a></li>
          </ul>
         </div>      
    </div>
@@ -258,32 +261,37 @@ a:hover{
 <div class="content"> 
 
   <div class="centerarea">
-     {{range .Cards}}
-     <div class="card">
-       <div class="cardmain">
-          <div class="keyword">
-             <div align="center">{{.Topic}}</div>
-          </div>
-          <div class="cardtitle">
-            <ul class="titlelist">
-              {{range .Feeds}}
-              <li class="singletitle">
-                  <a href="{{.Url}}" target="_blank">{{.Title}}</a>
-              </li>
-             {{end}}
-             </ul>
-          </div>
-       </div>
-     </div>
-     {{end}}
+     {{range .CardFlows}}
+     <div class="cardflow">
+         {{range .Cards}}
+         <div class="card">
+           <div class="cardmain">
+              <div class="keyword">
+                 <div align="center">{{.Topic}}</div>
+              </div>
+              <div class="cardtitle">
+                <ul class="titlelist">
+                  {{range .Feeds}}
+                  <li class="singletitle">
+                      <a href="{{.Url}}" target="_blank">{{.Title}}</a>
+                  </li>
+                 {{end}}
+                 </ul>
+              </div>
+           </div>
+         </div>
+         {{end}}
+      </div>
+      {{end}}
    </div>
  </div>
 
+<!--
 <div class="footer">
     <div class="about">
     Infor-u-mation
     </div>
-
 </div>
+-->
 </body>
 </html>
