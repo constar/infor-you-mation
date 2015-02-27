@@ -48,7 +48,7 @@ body {
 	position: relative;
 	z-index:1;
 }
- #iconmenu ul li {
+#iconmenu ul li {
 	float: right;
 	height: 20px;
 	width:30%;
