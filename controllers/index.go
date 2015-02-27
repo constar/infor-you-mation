@@ -40,6 +40,8 @@ var Topics = [...]string{
 	"前端",
 	"PHP",
 	"C++",
+	"iOS",
+	"Android",
 }
 
 func (mc *IndexController) getCardFlows() []*CardFlow {
@@ -48,7 +50,7 @@ func (mc *IndexController) getCardFlows() []*CardFlow {
 		cf[i] = &CardFlow{make([]*Card, 0)}
 	}
 	for i := 0; i < len(Topics); i++ {
-		c := mc.getCardByTopic(strings.ToLower(Topics[i]))
+		c := mc.getCardByTopic(Topics[i])
 		if c != nil {
 			cf[i%len(cf)].Cards = append(cf[i%len(cf)].Cards, c)
 		}
@@ -57,7 +59,7 @@ func (mc *IndexController) getCardFlows() []*CardFlow {
 }
 
 func (mc *IndexController) getCardByTopic(topic string) *Card {
-	kfps, err := models.GetKeywordFeedPairs(topic, FeedsLimit)
+	kfps, err := models.GetKeywordFeedPairs(strings.ToLower(topic), FeedsLimit)
 	if err != nil {
 		glog.Error(err)
 		return nil

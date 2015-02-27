@@ -22,7 +22,7 @@ func (mc *LoginController) Post() {
 	passwd = igo.GetMd5String(passwd)
 	if models.ValidateUser(username, passwd) {
 		glog.Info("username:", username, " login success!")
-		//mc.TplNames = "index.tpl"
+		mc.TplNames = "index.tpl"
 	} else {
 		mc.TplNames = "loginfailure.tpl"
 	}
