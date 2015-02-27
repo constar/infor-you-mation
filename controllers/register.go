@@ -12,7 +12,7 @@ type RegisterController struct {
 }
 
 func (rc *RegisterController) Get() {
-	rc.TplNames = "register.tpl"
+	rc.TplNames = "register.html"
 }
 
 func (rc *RegisterController) Post() {
@@ -22,16 +22,16 @@ func (rc *RegisterController) Post() {
 	checkpasswd := inputs.Get("checkpassword")
 	if password != checkpasswd {
 		glog.Errorf("password check failed [%s, %s]", password, checkpasswd)
-		rc.TplNames = "registerfailure.tpl"
+		rc.TplNames = "registerfailure.html"
 		return
 	}
 	password = igo.GetMd5String(password)
 	glog.Info("username:", username, "password:", password)
 	err := models.RegisterUser(username, password)
 	if err == nil {
-		rc.TplNames = "registersuccess.tpl"
+		rc.TplNames = "registersuccess.html"
 	} else {
 		glog.Error(err)
-		rc.TplNames = "registerfailure.tpl"
+		rc.TplNames = "registerfailure.html"
 	}
 }

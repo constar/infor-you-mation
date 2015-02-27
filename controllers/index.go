@@ -13,7 +13,7 @@ type IndexController struct {
 
 func (mc *IndexController) Get() {
 	mc.Data["CardFlows"] = mc.getCardFlows()
-	mc.TplNames = "index.tpl"
+	mc.TplNames = "index.html"
 }
 
 type CardFlow struct {

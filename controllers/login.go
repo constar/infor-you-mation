@@ -12,7 +12,7 @@ type LoginController struct {
 }
 
 func (mc *LoginController) Get() {
-	mc.TplNames = "login.tpl"
+	mc.TplNames = "login.html"
 }
 
 func (mc *LoginController) Post() {
@@ -22,8 +22,8 @@ func (mc *LoginController) Post() {
 	passwd = igo.GetMd5String(passwd)
 	if models.ValidateUser(username, passwd) {
 		glog.Info("username:", username, " login success!")
-		mc.TplNames = "index.tpl"
+		mc.TplNames = "index.html"
 	} else {
-		mc.TplNames = "loginfailure.tpl"
+		mc.TplNames = "loginfailure.html"
 	}
 }
