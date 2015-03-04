@@ -1,0 +1,69 @@
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>邮·订阅</title>
+	
+<link type="text/css" rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="header">
+    <div class="top-header">
+        <div id="divlogo">
+            <img src="http://7viirv.com1.z0.glb.clouddn.com/ulogo-01.png" width="193" height="50" alt="logo">
+        </div>
+        <div id="iconmenu">
+         <ul id="uliconmenu">
+           <li><a href="/register">注册</a></li>
+           <li><a href="/login">登录</a></li>
+         </ul>
+        </div>      
+   </div>
+   
+   <div class="cate-header">
+       <div id="divmenu">
+        <ul id="ulmenu">
+           <li><a href="#">首页</a></li>
+           <li><a href="#">热门</a></li>
+           <li><a href="#">精选</a></li>
+        </ul>
+      </div>  
+  </div>
+</div>
+<div class="content" id="content0"> 
+
+  <div class="centerarea">
+     {{range .CardFlows}}
+     <div class="cardflow">
+         {{range .Cards}}
+         <div class="card">
+           <div class="cardmain">
+              <div class="keyword">
+                 <div align="center">{{.Topic}}</div>
+              </div>
+              <div class="cardtitle">
+                <ul class="titlelist">
+                  {{range .Feeds}}
+                  <li class="singletitle">
+                      <a href="{{.Url}}" target="_blank">{{.Title}}</a>
+                  </li>
+                 {{end}}
+                 </ul>
+              </div>
+           </div>
+         </div>
+         {{end}}
+      </div>
+      {{end}}
+   </div>
+ </div>
+
+<!--
+<div class="footer">
+    <div class="about">
+    Infor-u-mation
+    </div>
+</div>
+-->
+</body>
+</html>
