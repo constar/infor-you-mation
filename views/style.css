@@ -1,8 +1,4 @@
-<html >
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>邮·订阅</title>
-<style type="text/css">
+
 body {
 	display: block;
 	margin: 0px;
@@ -117,13 +113,36 @@ a:hover{
 	display:inline-block;
 	
 }
-
-.content {
+#toptitle{
+	position:absolute;
+	width:500px;
+	height:50px;
+	margin-left:30%;
+	margin-right:30%;
+	padding:0px;
+	line-height:50px;
+}
+#welcome{
+	text-align:center;
+	font:"Arial Black", Gadget, sans-serif;
+	font-size:20px;
+	letter-spacing:10px;
+	color:#666;
+	margin:0px;
+	padding:opx;
+	vertical-align:middle;
+}
+.content， {
 	margin: 0px;
 	padding: 0px;
 	width: 100%;
 	position: relative;
+}
+.content0{
 	top:90px;
+}
+.content1{
+	top:150px;
 }
 .centerarea {
 	padding: 0px;
@@ -206,12 +225,105 @@ a:hover{
 	background-color:rgba(253, 248, 248, 0.97);
 	
 }
+.cardpart {
+	margin: 0px;
+	padding: 0px;
+	float: left;
+	height: 400px;
+	width: 50%;
+}
+#logo{
+	width:300px;
+	height:300px;
+	margin-top:50px;
+	margin-bottom:50px;
+	margin-left:16%;
+	margin-right:16%;
+	position:absolute;
+}
+#formbox{
+	width:300px;
+	height:300px;
+	margin-top:50px;
+	margin-bottom:50px;
+	margin-left:16%;
+	margin-right:16%;
+	position:absolute;
+}
+#loginform {
+	display: inline;
+	position: relative;
+	float: left;
+	height: 180px;
+	width: 300px;
+	text-align: center;
+	padding-top: 60px;
+	padding-bottom:60px;
+	margin: 0px;
+	line-height:60px;
+} 
+#registerform {
+	display: inline;
+	position: relative;
+	float: left;
+	height: 200px;
+	width: 300px;
+	text-align: center;
+	padding-top: 50px;
+	padding-bottom:50;
+	margin: 0px;
+	line-height:50px;
+} 
+
+p {
+margin:0px;
+}
+#username{
+	margin-left:15px;
+}
+#inputpwd{
+	margin-left:31px;
+}
+#login{
+	font-size:20px;
+	margin-top:0px;
+	margin-bottom:0px;
+	margin-left:23px;
+	margin-right:10px;
+
+}
+.button{
+	font-size:18px;
+}	
+#gif{
+	width:300px;
+	height:300px;
+	margin-top:50px;
+	margin-bottom:50px;
+	margin-left:16%;
+	margin-right:16%;
+	position:absolute;
+}
+.hint{
+	width:248px;
+	height:40px;
+	line-height:40px;
+	margin-top:130px;
+	margin-bottom:130px;
+	margin-left:50px;
+	margin-right:50px;
+	padding:50px;
+	font-size:18px;
+	position:absolute;
+}
+
+	
 .footer {
 	height:55px;
 	width: 100%;
 	background-color:rgba(248, 252, 247, 0.23);
-	/*top:1940px;
-	position:absolute;*/
+	top:800px;
+    position:absolute;
 	border-top-style:solid;
 	border-top-width:5px;
 	border-top-color:rgba(146, 156, 144, 0.31);
@@ -230,68 +342,3 @@ a:hover{
 	color:rgb(155, 162, 156);
 
 }
-	
-</style>
-</head>
-
-<body>
-<div class="header">
-    <div class="top-header">
-        <div id="divlogo">
-            <img src="http://7viirv.com1.z0.glb.clouddn.com/ulogo-01.png" width="193" height="50" alt="logo">
-        </div>
-        <div id="iconmenu">
-         <ul id="uliconmenu">
-           <li><a href="/register">注册</a></li>
-           <li><a href="/login">登录</a></li>
-         </ul>
-        </div>      
-   </div>
-   
-   <div class="cate-header">
-       <div id="divmenu">
-        <ul id="ulmenu">
-           <li><a href="#">首页</a></li>
-           <li><a href="#">热门</a></li>
-           <li><a href="#">精选</a></li>
-        </ul>
-      </div>  
-  </div>
-</div>
-<div class="content"> 
-
-  <div class="centerarea">
-     {{range .CardFlows}}
-     <div class="cardflow">
-         {{range .Cards}}
-         <div class="card">
-           <div class="cardmain">
-              <div class="keyword">
-                 <div align="center">{{.Topic}}</div>
-              </div>
-              <div class="cardtitle">
-                <ul class="titlelist">
-                  {{range .Feeds}}
-                  <li class="singletitle">
-                      <a href="{{.Url}}" target="_blank">{{.Title}}</a>
-                  </li>
-                 {{end}}
-                 </ul>
-              </div>
-           </div>
-         </div>
-         {{end}}
-      </div>
-      {{end}}
-   </div>
- </div>
-
-<!--
-<div class="footer">
-    <div class="about">
-    Infor-u-mation
-    </div>
-</div>
--->
-</body>
-</html>
