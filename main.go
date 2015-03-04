@@ -9,6 +9,6 @@ import (
 func main() {
 	flag.Parse()
 	//beego.SessionOn = true
-	//beego.SetStaticPath("/publish", "statics")
+	beego.SetStaticPath("/css", "views/css")
 	beego.Run()
 }
