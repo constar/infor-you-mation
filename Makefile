@@ -1,4 +1,4 @@
 all:
 	go build
-run:
+run: all
 	./infor-you-mation -alsologtostderr=true

@@ -11,19 +11,19 @@ type LoginController struct {
 	beego.Controller
 }
 
-func (mc *LoginController) Get() {
-	mc.TplNames = "login.html"
+func (this *LoginController) Get() {
+	this.TplNames = "login.html"
 }
 
-func (mc *LoginController) Post() {
-	inputs := mc.Input()
+func (this *LoginController) Post() {
+	inputs := this.Input()
 	username := inputs.Get("username")
 	passwd := inputs.Get("password")
 	passwd = igo.GetMd5String(passwd)
 	if models.ValidateUser(username, passwd) {
 		glog.Info("username:", username, " login success!")
-		mc.TplNames = "index.html"
+		this.TplNames = "index.html"
 	} else {
-		mc.TplNames = "loginfailure.html"
+		this.TplNames = "loginfailure.html"
 	}
 }

@@ -34,7 +34,7 @@ func GetCardFlows() []*CardFlow {
 		cf[i] = &CardFlow{make([]*Card, 0)}
 	}
 	for i := 0; i < len(Topics); i++ {
-		c := getCardByTopic(Topics[i])
+		c := GetCardByTopic(Topics[i])
 		if c != nil {
 			cf[i%len(cf)].Cards = append(cf[i%len(cf)].Cards, c)
 		}
@@ -42,7 +42,7 @@ func GetCardFlows() []*CardFlow {
 	return cf
 }
 
-func getCardByTopic(topic string) *Card {
+func GetCardByTopic(topic string) *Card {
 	kfps, err := GetKeywordFeedPairs(strings.ToLower(topic), FeedsLimit)
 	if err != nil {
 		glog.Error(err)

@@ -9,7 +9,7 @@ type IndexController struct {
 	beego.Controller
 }
 
-func (mc *IndexController) Get() {
-	mc.Data["CardFlows"] = models.GetCardFlows()
-	mc.TplNames = "index.html"
+func (this *IndexController) Get() {
+	this.Data["CardFlows"] = models.GetCardFlows()
+	this.TplNames = "index.html"
 }
