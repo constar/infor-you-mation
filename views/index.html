@@ -23,9 +23,9 @@
    <div class="cate-header">
        <div id="divmenu">
         <ul id="ulmenu">
-           <li><a href="#">首页</a></li>
-           <li><a href="#">热门</a></li>
-           <li><a href="#">精选</a></li>
+           <li><a href="/">首页</a></li>
+           <li><a href="/?cat=hot">热门</a></li>
+           <li><a href="/?cat=album">精选</a></li>
         </ul>
       </div>  
   </div>
@@ -39,7 +39,11 @@
          <div class="card">
            <div class="cardmain">
               <div class="keyword">
-                 <div align="center">{{.Topic}}</div>
+                  <div align="center">
+                      <a href="/card?k={{.Topic}}">
+                          {{.Topic}}
+                      </a>
+                  </div>
               </div>
               <div class="cardtitle">
                 <ul class="titlelist">

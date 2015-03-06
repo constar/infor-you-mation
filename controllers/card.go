@@ -14,7 +14,7 @@ func (this *CardController) Get() {
 	beego.Debug("CardController Get", k)
 	this.Data["Card"] = models.GetCardByTopic(k)
 	beego.Debug(this.Data["Card"].(*models.Card))
-	this.TplNames = "tmp.html"
+	this.TplNames = "carddetail.html"
 }
 
 func (this *CardController) Post() {
