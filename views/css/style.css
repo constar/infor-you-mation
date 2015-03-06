@@ -424,7 +424,7 @@ margin:0px;
 	margin-left:5%;
 	margin-right:5%;
 	padding:0px;
-	list-style-type: thai;
+	list-style-type: decimal;
     list-style-position: inside;
 }
 .li_detail{
@@ -443,5 +443,9 @@ margin:0px;
 	color:black;
 	font-size:22px;
 }
+.a_detail:hover{
+	color: rgba(15, 19, 15, 0.7);
+}
+	
 
 
