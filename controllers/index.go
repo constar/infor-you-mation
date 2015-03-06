@@ -10,6 +10,6 @@ type IndexController struct {
 }
 
 func (this *IndexController) Get() {
-	this.Data["CardFlows"] = models.GetCardFlows()
+	this.Data["CardFlows"] = models.GetCardFlows(5)
 	this.TplNames = "index.html"
 }

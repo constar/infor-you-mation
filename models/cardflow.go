@@ -14,7 +14,6 @@ type Card struct {
 	Feeds []*Feed
 }
 
-const FeedsLimit = 5
 const CardFlowN = 2
 
 var Topics = [...]string{
@@ -28,13 +27,13 @@ var Topics = [...]string{
 	"Android",
 }
 
-func GetCardFlows() []*CardFlow {
+func GetCardFlows(row_num int) []*CardFlow {
 	cf := make([]*CardFlow, CardFlowN)
 	for i := 0; i < len(cf); i++ {
 		cf[i] = &CardFlow{make([]*Card, 0)}
 	}
 	for i := 0; i < len(Topics); i++ {
-		c := GetCardByTopic(Topics[i])
+		c := GetCardByTopic(Topics[i], row_num)
 		if c != nil {
 			cf[i%len(cf)].Cards = append(cf[i%len(cf)].Cards, c)
 		}
@@ -42,8 +41,8 @@ func GetCardFlows() []*CardFlow {
 	return cf
 }
 
-func GetCardByTopic(topic string) *Card {
-	kfps, err := GetKeywordFeedPairs(strings.ToLower(topic), FeedsLimit)
+func GetCardByTopic(topic string, row_num int) *Card {
+	kfps, err := GetKeywordFeedPairs(strings.ToLower(topic), row_num)
 	if err != nil {
 		glog.Error(err)
 		return nil

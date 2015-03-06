@@ -11,9 +11,9 @@ type CardController struct {
 
 func (this *CardController) Get() {
 	k := this.GetString("k")
-	beego.Debug("CardController Get", k)
-	this.Data["Card"] = models.GetCardByTopic(k)
-	beego.Debug(this.Data["Card"].(*models.Card))
+	//beego.Debug("CardController Get", k)
+	this.Data["Card"] = models.GetCardByTopic(k, 20)
+	//beego.Debug(this.Data["Card"].(*models.Card))
 	this.TplNames = "carddetail.html"
 }
 

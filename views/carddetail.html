@@ -32,25 +32,18 @@
 <div class="mainpart">
     <div class="leftpart">
         <div class="keyword_card">
-        <p class="keyword">实习
+        <p class="keyword">{{.Card.Topic}}
         </p>
         </div>
     </div>
     <div class="rightpart">
         <div class="detailpart">
             <ul class="ul_detail">
+                {{range .Card.Feeds}}
                 <li class="li_detail">
-                    <a class="a_detail" href="">test</a>
+                    <a class="a_detail" href="{{.Url}}">{{.Title}}</a>
                 </li>
-                <li class="li_detail">
-                    <a class="a_detail" href="">test</a>
-                </li>
-                <li class="li_detail">
-                    <a class="a_detail" href="">test</a>
-                </li>
-                <li class="li_detail">
-                    <a class="a_detail" href="">test</a>
-                </li>
+                {{end}}
             </ul>
         </div>
     </div>
