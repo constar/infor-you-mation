@@ -13,6 +13,7 @@ func (this *CardController) Get() {
 	k := this.GetString("k")
 	//beego.Debug("CardController Get", k)
 	this.Data["Card"] = models.GetCardByTopic(k, 20)
+	this.Data["YesterdayAdd"] = models.GetYesterdayAddByKeyword(k)
 	//beego.Debug(this.Data["Card"].(*models.Card))
 	this.TplNames = "carddetail.html"
 }
