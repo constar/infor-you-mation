@@ -369,83 +369,88 @@ margin:0px;
 }
 .mainpart{
 	position:relative;
-	width:100%;
+	width:50%;
 	top:90px;
 	padding:0px;
+	margin-left:25%;
+	margin-right:25%;
+	border-width: 1px;
+    border-color: rgba(202, 196, 196, 0.43);
+    border-style: solid;
 }
-.leftpart{
-	position:relative;
-	float:left;
-	width:20%;
-	height:100%;
-	padding:0px;
+.mainpart:hover{
+	border-color:rgba(202, 196, 196, 0.99);
 }
-.rightpart{
-	position:relative;
-	float:left;
-	width:80%;
-	height:100%;
-	padding:0px;
+.toppart{
+	width:90%;
+	padding-left:5%;
+	padding-right:5%;
+	height:30px;
+	border-bottom: 1px;
+    border-bottom-color: rgba(202, 196, 196, 0.43);
+    border-bottom-style: solid;
+}
+.detailpart{
+	width:100%;
+	padding:0;
 }
 .keyword_card{
 	position:relative;
 	float:left;
-	width:60%;
-	margin-left:20%;
-	margin-right:20%;
-	height:65px;
-	padding:0px;
-	background-color:rgba(118, 131, 121, 0.08);
-	border-radius:30px;
+    padding:0px;
 }
 .cardtopic{
 	color:rgba(42, 88, 36, 0.55);
-    font-size:35px;
+    font-size:20px;
 	margin:0px;
-	padding-top:15px;
-	padding-bottom:15px;
+	padding:5px;
 	text-align:center;
-	font-family:STXinwei;
+	font-family: STKaiti,STFangsong,Helvetica, Arial, Vernada, sans-serif;
 	font-weight:normal;
 }
-.detailpart{
-	position:relative;
-	width:75%;
-	height:100%;
-	margin-right:25%;
-	padding:0px;
+.yesterdayadd{
+	float:right;
+	padding-top:7.5px;
+	padding-bottom:7.5px;
+	font-size:15px;
+	color:#666;
+	font-family: STKaiti,STFangsong,Helvetica, Arial, Vernada, sans-serif;
 }
 .ul_detail{
 	position:relative;
-	width:90%;
-	height:100%;
+	width:100%;
 	margin-top:0;
 	margin-bottom:0;
-	margin-left:5%;
-	margin-right:5%;
+	margin-left:0;
+	margin-right:0;
 	padding:0px;
 	list-style-type: decimal;
     list-style-position: inside;
 }
 .li_detail{
 	width:90%;
-	margin-top:0;
-	margin-bottom:30px;
-	padding-top:10px;
-	padding-bottom:10px;
-	padding-left:25px;
-	padding-right:10px;
-	background-color:rgba(255, 255, 255, 0.52);
-	border-radius:10px;
+    margin:0px;
+	border-bottom: 1px;
+    border-bottom-color: rgba(202, 196, 196, 0.43);
+    border-bottom-style: solid;
+    padding-top:15px;
+	padding-bottom:15px;
+	padding-left:5%;
+	padding-right:5%;
 }
+.li_detail:hover {
+    background-color: #eee;
+}
+
+
 .a_detail{
 	text-decoration:none;
-	color:black;
-	font-size:22px;
+	color: rgba(0, 0, 0, 0.8);
+    font-size: 20px;
+    font-family: STKaiti,STFangsong,Helvetica, Arial, Vernada, Tahoma, STXihei,sans-serif;
+}
 }
 .a_detail:hover{
-	color: rgba(15, 19, 15, 0.7);
+	color: rgba(202, 196, 196, 0.73);
 }
-	
-
 

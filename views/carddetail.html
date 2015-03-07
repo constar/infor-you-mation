@@ -30,17 +30,16 @@
 </div>
 
 <div class="mainpart">
-    <div class="leftpart">
+    <div class="toppart">
         <div class="keyword_card">
             <p class="cardtopic">
             {{.Card.Topic}}
             </p>
+        </div>
             <p>
             过去一天内新增数:{{.YesterdayAdd}}
-            </p>
-        </div>
+            </p>   
     </div>
-    <div class="rightpart">
         <div class="detailpart">
             <ul class="ul_detail">
                 {{range .Card.Feeds}}
@@ -50,7 +49,6 @@
                 {{end}}
             </ul>
         </div>
-    </div>
 </div>
 </body>
 </html>
