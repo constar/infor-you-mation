@@ -32,6 +32,7 @@ func GetKeywordFeedPairs(word string, n int) ([]KeywordFeedPair, error) {
 func GetYesterdayAddByKeyword(word string) int {
 	c := client.dbSess.DB(client.dbName).C(keywordColName)
 	righttime := time.Now()
+	righttime = time.Date(righttime.Year(), righttime.Month(), righttime.Day(), 0, 0, 0, 0, time.UTC)
 	d, err := time.ParseDuration("-24h")
 	if err != nil {
 		glog.Error(err)
@@ -40,8 +41,6 @@ func GetYesterdayAddByKeyword(word string) int {
 	lefttime := righttime.Add(d)
 
 	query := bson.M{"keyword": word, "lastmodified": bson.M{"$gte": lefttime, "$lt": righttime}}
-	fmt.Println(lefttime)
-	fmt.Println(righttime)
 	cnt, err := c.Find(query).Count()
 	if err != nil {
 		glog.Error(err)
