@@ -10,6 +10,13 @@ type IndexController struct {
 }
 
 func (this *IndexController) Get() {
-	this.Data["CardFlows"] = models.GetCardFlows(5)
+	cat := this.GetString("cat")
+	switch cat {
+	case "random":
+		this.Data["CardFlows"] = models.GetRandomCardFlows(5)
+	default:
+		this.Data["CardFlows"] = models.GetCardFlows(5)
+	}
 	this.TplNames = "index.html"
+
 }

@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/golang/glog"
+	"math/rand"
 	"strings"
 )
 
@@ -25,6 +26,21 @@ var Topics = [...]string{
 	"C++",
 	"iOS",
 	"Android",
+}
+
+func GetRandomCardFlows(row_num int) []*CardFlow {
+	cf := make([]*CardFlow, CardFlowN)
+	for i := 0; i < len(cf); i++ {
+		cf[i] = &CardFlow{make([]*Card, 0)}
+	}
+	rnd := rand.Perm(len(Topics))
+	for _, i := range rnd {
+		c := GetCardByTopic(Topics[i], row_num)
+		if c != nil {
+			cf[i%len(cf)].Cards = append(cf[i%len(cf)].Cards, c)
+		}
+	}
+	return cf
 }
 
 func GetCardFlows(row_num int) []*CardFlow {
