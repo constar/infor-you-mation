@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/golang/glog"
 	"gopkg.in/mgo.v2/bson"
-	"time"
+	"strings"
 )
 
 const (
@@ -22,6 +22,7 @@ func (this *KeywordFeedPair) String() string {
 }
 
 func GetKeywordFeedPairs(word string, n int) ([]KeywordFeedPair, error) {
+	word = strings.ToLower(word)
 	c := client.dbSess.DB(client.dbName).C(keywordColName)
 	query := bson.M{"keyword": word}
 	kwfp := make([]KeywordFeedPair, 0)
@@ -30,17 +31,9 @@ func GetKeywordFeedPairs(word string, n int) ([]KeywordFeedPair, error) {
 }
 
 func GetYesterdayAddByKeyword(word string) int {
+	word = strings.ToLower(word)
 	c := client.dbSess.DB(client.dbName).C(keywordColName)
-	righttime := time.Now()
-	righttime = time.Date(righttime.Year(), righttime.Month(), righttime.Day(), 0, 0, 0, 0, time.UTC)
-	d, err := time.ParseDuration("-24h")
-	if err != nil {
-		glog.Error(err)
-		return 0
-	}
-	lefttime := righttime.Add(d)
-
-	query := bson.M{"keyword": word, "lastmodified": bson.M{"$gte": lefttime, "$lt": righttime}}
+	query := bson.M{"keyword": word, "lastmodified": GetPastDayRange()}
 	cnt, err := c.Find(query).Count()
 	if err != nil {
 		glog.Error(err)
