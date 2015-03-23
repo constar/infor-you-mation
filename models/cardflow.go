@@ -3,7 +3,6 @@ package models
 import (
 	"github.com/golang/glog"
 	"gopkg.in/mgo.v2/bson"
-	"math/rand"
 )
 
 type CardFlow struct {
@@ -17,33 +16,6 @@ type Card struct {
 }
 
 const CardFlowN = 2
-
-var Topics = [...]string{
-	"实习/兼职",
-	"大数据",
-	"人工智能",
-	"设计",
-	"前端",
-	"PHP",
-	"C++",
-	"iOS",
-	"Android",
-}
-
-func GetRandomCardFlows(row_num int) []*CardFlow {
-	cf := make([]*CardFlow, CardFlowN)
-	for i := 0; i < len(cf); i++ {
-		cf[i] = &CardFlow{make([]*Card, 0)}
-	}
-	rnd := rand.Perm(len(Topics))
-	for _, i := range rnd {
-		c := GetCardByTopic(Topics[i], row_num)
-		if c != nil {
-			cf[i%len(cf)].Cards = append(cf[i%len(cf)].Cards, c)
-		}
-	}
-	return cf
-}
 
 func GetHotCardFlows(row_num int) []*CardFlow {
 	topics := GetHotTopics()
@@ -86,21 +58,6 @@ func GetHotTopics() (topics []string) {
 		topics = append(topics, res.Id)
 	}
 	return
-}
-
-func GetCardFlows(row_num int) []*CardFlow {
-	cf := make([]*CardFlow, CardFlowN)
-	for i := 0; i < len(cf); i++ {
-		cf[i] = &CardFlow{make([]*Card, 0)}
-	}
-	for i := 0; i < len(Topics); i++ {
-		c := GetCardByTopic(Topics[i], row_num)
-		j := i % len(cf)
-		if c != nil {
-			cf[j].Cards = append(cf[j].Cards, c)
-		}
-	}
-	return cf
 }
 
 func GetCardByTopic(topic string, row_num int) *Card {
