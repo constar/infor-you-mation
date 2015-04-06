@@ -1,6 +1,6 @@
 # InforYouMation
 
-The information for you .
+Just a toy project, Codes is ugly. So don't smell it.
 
 ## Dependency
 

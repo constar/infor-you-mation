@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/golang/glog"
+	"github.com/astaxie/beego"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -51,7 +51,7 @@ func GetHotTopics() (topics []string) {
 	}
 	err := pipe.All(&results)
 	if err != nil {
-		glog.Error(err)
+		beego.Error(err)
 		return
 	}
 	for _, res := range results {
@@ -63,18 +63,18 @@ func GetHotTopics() (topics []string) {
 func GetCardByTopic(topic string, row_num int) *Card {
 	kfps, err := GetKeywordFeedPairs(topic, row_num)
 	if err != nil {
-		glog.Error(err)
+		beego.Error(err)
 		return nil
 	}
 	c := Card{topic, GetYesterdayAddByKeyword(topic), make([]*Feed, 0)}
 	for i := 0; i < len(kfps); i++ {
 		feeds, err := GetFeedById(kfps[i].Feedid)
 		if err != nil {
-			glog.Error(err)
+			beego.Error(err)
 			return nil
 		}
 		if len(feeds) != 1 {
-			glog.Error("feeds illegal!!!")
+			beego.Error("feeds illegal!!!")
 			return nil
 		}
 		c.Feeds = append(c.Feeds, &feeds[0])
