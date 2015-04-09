@@ -1,5 +1,5 @@
 all:
-	go build
+	go build -o infor-you-mation
 run:
 	./infor-you-mation -alsologtostderr=true
 debug:
