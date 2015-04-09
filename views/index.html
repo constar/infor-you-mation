@@ -5,8 +5,50 @@
 
         <link rel="icon" href="http://7viirv.com1.z0.glb.clouddn.com/youdingyue_favicon.png" sizes="32x32" />  
         <link rel="stylesheet" href="css/style.css">
-    </head>
+        <script>
+            window.onload = function() {
+                /*
+                for (var i = 0; i < 2; i++) {
+                    for (var j = 0; j < 4; j++) {
+                        var card = document.createElement("div"); 
+                        card.setAttribute("class", "card");
+                        cardflows[i].appendChild(card);
+                    }
+                }
+                
+                //  var cardmain = document.creatElement("div");
 
+                */
+            }
+
+            function getCardFlow(msgs) {
+                var cardflows = document.getElementsByClassName("cardflow");
+                for (var i = 0; i < msgs.length; i++) {
+                    var card = document.createElement("div");
+                    card.setAttribute("class", "card");
+                    cardflows[i%2].appendChild(card);
+                }
+                var cards = document.getElementsByClassName("card");
+                for (var i = 0; i < cards.length; i++) {
+                    var cardmain = document.createElement("div");
+                    cardmain.setAttribute("class", "cardmain");
+                    cards[i].appendChild(cardmain);
+                }
+                var cardmains = document.getElementsByClassName("cardmain");
+                for (var i = 0; i < cardmains.length; i++) {
+                    var keyword = document.createElement("div");
+                    keyword.setAttribute("class", "keyword");
+                    cardmains[i].appendChild(keyword);
+                    var cardtitle = document.createElement("div");
+                    cardtitle.setAttribute("class", "cardtitle")
+                    cardmains[i].appendChild(cardtitle);
+                }
+            }
+    
+                    
+
+        </script>
+    </head>
     <body>
         <div class="header">
             <div class="top-header">
@@ -33,6 +75,13 @@
         <div class="content content0"> 
 
             <div class="centerarea">
+                <div class="cardflow">
+                </div>
+                <div class="cardflow">
+                </div>
+                <script src="http://ydy.yanyiwu.com/cardlist?callback=getCardFlow">
+                </script>
+                <!--
                 {{range .CardFlows}}
                 <div class="cardflow">
                     {{range .Cards}}
@@ -62,6 +111,7 @@
                     {{end}}
                 </div>
                 {{end}}
+                -->
             </div>
         </div>
 
