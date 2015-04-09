@@ -2,6 +2,7 @@ package models
 
 import (
 	"github.com/astaxie/beego"
+	"github.com/golang/glog"
 	"gopkg.in/mgo.v2/bson"
 )
 
@@ -35,7 +36,9 @@ func GetHotCardFlows(row_num int) []*CardFlow {
 
 func GetHotTopics() (topics []string) {
 	c := client.dbSess.DB(client.dbName).C(keywordColName)
+	glog.V(5).Info(client.dbName, " ", keywordColName)
 	pastday := GetPastDayRange()
+	glog.V(5).Info(pastday)
 	m1 := bson.M{"$match": bson.M{"lastmodified": pastday}}
 	m2 := bson.M{"$group": bson.M{"_id": "$keyword", "count": bson.M{"$sum": 1}}}
 	m3 := bson.M{"$sort": bson.M{"count": -1}}
@@ -56,7 +59,9 @@ func GetHotTopics() (topics []string) {
 	}
 	for _, res := range results {
 		topics = append(topics, res.Id)
+		glog.V(5).Info("topic: ", res.Id)
 	}
+	glog.V(3).Info("hot topics: ", len(topics))
 	return
 }
 
