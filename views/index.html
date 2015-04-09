@@ -1,76 +1,76 @@
 <html >
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>邮·订阅</title>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>邮·订阅</title>
 
-<link rel="icon" href="http://7viirv.com1.z0.glb.clouddn.com/youdingyue_favicon.png" sizes="32x32" />  
-<link rel="stylesheet" href="css/style.css">
-</head>
+        <link rel="icon" href="http://7viirv.com1.z0.glb.clouddn.com/youdingyue_favicon.png" sizes="32x32" />  
+        <link rel="stylesheet" href="css/style.css">
+    </head>
 
-<body>
-<div class="header">
-    <div class="top-header">
-        <div id="divlogo">
-            <img src="http://7viirv.com1.z0.glb.clouddn.com/ulogo-01.png" width="193" height="50" alt="logo">
+    <body>
+        <div class="header">
+            <div class="top-header">
+                <div id="divlogo">
+                    <img src="http://7viirv.com1.z0.glb.clouddn.com/ulogo-01.png" width="193" height="50" alt="logo">
+                </div>
+                <div id="iconmenu">
+                    <ul id="uliconmenu">
+                        <li><a class="ac" href="/register">注册</a></li>
+                        <li><a class="ac" href="/login">登录</a></li>
+                    </ul>
+                </div>      
+            </div>
+
+            <div class="cate-header">
+                <div id="divmenu">
+                    <ul id="ulmenu">
+                        <li><a class="ac" href="/">热门</a></li>
+                        <li><a class="ac" href="/?cat=random">随机</a></li>
+                    </ul>
+                </div>  
+            </div>
         </div>
-        <div id="iconmenu">
-         <ul id="uliconmenu">
-           <li><a class="ac" href="/register">注册</a></li>
-           <li><a class="ac" href="/login">登录</a></li>
-         </ul>
-        </div>      
-   </div>
-   
-   <div class="cate-header">
-       <div id="divmenu">
-        <ul id="ulmenu">
-           <li><a class="ac" href="/">热门</a></li>
-           <li><a class="ac" href="/?cat=random">随机</a></li>
-        </ul>
-      </div>  
-  </div>
-</div>
-<div class="content content0"> 
+        <div class="content content0"> 
 
-  <div class="centerarea">
-     {{range .CardFlows}}
-     <div class="cardflow">
-         {{range .Cards}}
-         <div class="card">
-           <div class="cardmain">
-              <div class="keyword">
-                  <div align="center">
-                      <a class="ak" href="/card?k={{.Topic}}">
-                          {{.Topic}}
-                      </a>
-                      <p class="yesterdayadd">
-                      过去一天新增数:{{.YesterdayAdd}}
-                      </p>   
-                  </div>
-              </div>
-              <div class="cardtitle">
-                <ul class="titlelist">
-                  {{range .Feeds}}
-                  <li class="singletitle">
-                      <a class="al" href="{{.Url}}" target="_blank">{{.Title}}</a>
-                  </li>
-                 {{end}}
-                 </ul>
-              </div>
-           </div>
-         </div>
-         {{end}}
-      </div>
-      {{end}}
-   </div>
- </div>
+            <div class="centerarea">
+                {{range .CardFlows}}
+                <div class="cardflow">
+                    {{range .Cards}}
+                    <div class="card">
+                        <div class="cardmain">
+                            <div class="keyword">
+                                <div align="center">
+                                    <a class="ak" href="/card?k={{.Topic}}">
+                                        {{.Topic}}
+                                    </a>
+                                    <p class="yesterdayadd">
+                                    过去一天新增数:{{.YesterdayAdd}}
+                                    </p>   
+                                </div>
+                            </div>
+                            <div class="cardtitle">
+                                <ul class="titlelist">
+                                    {{range .Feeds}}
+                                    <li class="singletitle">
+                                    <a class="al" href="{{.Url}}" target="_blank">{{.Title}}</a>
+                                    </li>
+                                    {{end}}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    {{end}}
+                </div>
+                {{end}}
+            </div>
+        </div>
 
-<!--
-<div class="footer">
-    <div class="about">
-    Infor-u-mation
-    </div>
-</div>
--->
-</body>
+        <!--
+        <div class="footer">
+            <div class="about">
+                Infor-u-mation
+            </div>
+        </div>
+        -->
+    </body>
 </html>
