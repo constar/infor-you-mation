@@ -1,8 +1,8 @@
 package controllers
 
 import (
+	"../models"
 	"github.com/astaxie/beego"
-	"github.com/yanyiwu/infor-you-mation/models"
 )
 
 type CardController struct {

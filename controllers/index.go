@@ -1,8 +1,9 @@
 package controllers
 
 import (
+	"../models"
+	"encoding/json"
 	"github.com/astaxie/beego"
-	"github.com/yanyiwu/infor-you-mation/models"
 )
 
 type IndexController struct {
@@ -14,11 +15,18 @@ const (
 )
 
 func (this *IndexController) Get() {
-	cat := this.GetString("cat")
-	switch cat {
-	default:
+	cb := this.GetString("callback")
+	beego.Info("callback", cb)
+	if cb == "gethotcardflow" {
+		b, err := json.Marshal(models.GetHotCardFlows(ROW_LIMIT))
+		if err != nil {
+			beego.Error(err)
+			return
+		}
+		s := cb + "(" + string(b) + ");"
+		this.Ctx.WriteString(s)
+	} else {
 		this.Data["CardFlows"] = models.GetHotCardFlows(ROW_LIMIT)
+		this.TplNames = "index.html"
 	}
-	this.TplNames = "index.html"
-
 }
