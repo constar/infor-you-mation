@@ -15,7 +15,7 @@
                         cardflows[i].appendChild(card);
                     }
                 }
-                
+
                 //  var cardmain = document.creatElement("div");
 
                 */
@@ -43,8 +43,49 @@
                     cardtitle.setAttribute("class", "cardtitle")
                     cardmains[i].appendChild(cardtitle);
                 }
+                var keywords = document.getElementsByClassName("keyword");
+                for (var i = 0; i < keywords.length; i++) {
+                    var divcenter = document.createElement("div");
+                    divcenter.setAttribute("class", "divcenter");
+                    keywords[i].appendChild(divcenter);
+                }
+                var divcenters = document.getElementsByClassName("divcenter");
+                for (var i = 0; i < divcenters.length; i++) {
+                    var ak = document.createElement("a");
+                    ak.setAttribute("class", "ak");
+                    ak.innerHTML=msgs[i].Topic;
+                    divcenters[i].appendChild(ak);
+                    var add = document.createElement("P");
+                    add.setAttribute("class", "yesterdayadd");
+                    add.innerHTML="过去一天新增数：" + msgs[i].PastDayAdd;
+                    divcenters[i].appendChild(add);
+                }
+                var cardtitles = document.getElementsByClassName("cardtitle");
+                for (var i = 0; i < cardtitles.length; i++) {
+                    var titlelist = document.createElement("ul");
+                    titlelist.setAttribute("class", "titlelist");
+                    cardtitles[i].appendChild(titlelist);
+                }
+                var titlelists = document.getElementsByClassName("titlelist");
+                for (var i = 0; i < titlelists.length; i++) {
+                    for (var j = 0; j < 5; j++) {
+                        var singletitle = document.createElement("li");
+                        singletitle.setAttribute("class", "singletitle");
+                        titlelists[i].appendChild(singletitle);
+                    }
+                }
+                var singletitles = document.getElementsByClassName("singletitle");
+                for (var i = 0; i < titlelists.length; i++) {
+                    for (var j = 0; j < 5; j++) {
+                        var al = document.createElement("a");
+                        al.setAttribute("class", "al");
+                        al.innerHTML=msgs[i].Feeds[j].Title;
+                        al.href=msgs[i].Feeds[j].Url;
+                        // console.log(titlelists[i].childNodes[j]);
+                        titlelists[i].childNodes[j].appendChild(al);
+                    }
+                }
             }
-    
         </script>
     </head>
     <body>
