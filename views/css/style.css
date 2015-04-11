@@ -385,12 +385,8 @@ margin:0px;
 	width:100%;
 	padding:0;
 }
-.keyword_card{
-	position:relative;
-	float:left;
-    padding:0px;
-}
 .cardtopic{
+    float:left;
 	color:rgba(42, 88, 36, 0.55);
     font-size:20px;
 	margin:0px;

@@ -7,18 +7,6 @@
         <link rel="stylesheet" href="css/style.css">
         <script>
             window.onload = function() {
-                /*
-                for (var i = 0; i < 2; i++) {
-                    for (var j = 0; j < 4; j++) {
-                        var card = document.createElement("div"); 
-                        card.setAttribute("class", "card");
-                        cardflows[i].appendChild(card);
-                    }
-                }
-
-                //  var cardmain = document.creatElement("div");
-
-                */
             }
 
             function getCardFlow(msgs) {
@@ -82,16 +70,54 @@
                         al.setAttribute("class", "al");
                         al.innerHTML=msgs[i].Feeds[j].Title;
                         al.href=msgs[i].Feeds[j].Url;
-                        // console.log(titlelists[i].childNodes[j]);
                         titlelists[i].childNodes[j].appendChild(al);
                     }
                 }
             }
             function getDetails() {
-                var body =document.getElementsByTagName("body")[0];
-                var divcontent =document.getElementsByClassName("content content0")[0];
+                var keyword = this.innerHTML;
+                var scriptelement = document.createElement("script");
+                var url = "http://api.ydy.yanyiwu.com/carddetail" + "?k=" + keyword + "&callback=showdetails";
+                scriptelement.setAttribute("src", url)
+                var body = document.getElementsByTagName("body")[0];
+                var divcontent = document.getElementsByClassName("content content0")[0];
                 body.removeChild(divcontent);
+                var mainpart = document.createElement("div");
+                mainpart.setAttribute("class", "mainpart");
+                body.appendChild(mainpart);
+                body.appendChild(scriptelement);
+                var toppart = document.createElement("div");
+                toppart.setAttribute("class", "toppart");
+                mainpart.appendChild(toppart);
+                var detailpart = document.createElement("div");
+                detailpart.setAttribute("class", "detailpart");
+                mainpart.appendChild(detailpart);
+                var cardtopic = document.createElement("p");
+                cardtopic.setAttribute("class", "cardtopic");
+                cardtopic.innerHTML=keyword;
+                toppart.appendChild(cardtopic);
+                var yesterdayadd = document.createElement("p");
+                yesterdayadd.setAttribute("class", "yesterdayadd");
+                toppart.appendChild(yesterdayadd);
+                var uldetail = document.createElement("ul");
+                uldetail.setAttribute("class", "ul_detail");
+                detailpart.appendChild(uldetail);
+                for (var i = 0; i < 20; i++) {
+                    var lidetail = document.createElement("li");
+                    lidetail.setAttribute("class", "li_detail");
+                    uldetail.appendChild(lidetail);
+                }
             }
+            function showdetails(detail) {
+                var yesterdayadd = document.getElementsByClassName("yesterdayadd")[0];
+                yesterdayadd.innerHTML="过去一天新增数: "+ detail.PastDayAdd;
+                var lidetails = document.getElementsByClassName("li_detail");
+                for (var i = 0; i < 20; i++) {
+                    lidetails[i].innerHTML=detail.Feeds[i].Title;
+                }
+            }
+
+
         </script>
     </head>
     <body>
