@@ -54,6 +54,7 @@
                     var ak = document.createElement("a");
                     ak.setAttribute("class", "ak");
                     ak.innerHTML=msgs[i].Topic;
+                    ak.onclick = getDetails;
                     divcenters[i].appendChild(ak);
                     var add = document.createElement("P");
                     add.setAttribute("class", "yesterdayadd");
@@ -85,6 +86,11 @@
                         titlelists[i].childNodes[j].appendChild(al);
                     }
                 }
+            }
+            function getDetails() {
+                var body =document.getElementsByTagName("body")[0];
+                var divcontent =document.getElementsByClassName("content content0")[0];
+                body.removeChild(divcontent);
             }
         </script>
     </head>
