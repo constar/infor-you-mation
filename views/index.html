@@ -102,19 +102,21 @@
                 var uldetail = document.createElement("ul");
                 uldetail.setAttribute("class", "ul_detail");
                 detailpart.appendChild(uldetail);
-                for (var i = 0; i < 20; i++) {
-                    var lidetail = document.createElement("li");
-                    lidetail.setAttribute("class", "li_detail");
-                    uldetail.appendChild(lidetail);
-                }
             }
             function showdetails(detail) {
+                for (var i = 0; i < detail.Feeds.length; i++) {
+                    var lidetail = document.createElement("li");
+                    lidetail.setAttribute("class", "li_detail");
+                    var adetail = document.createElement("a");
+                    adetail.setAttribute("class", "a_detail");
+                    adetail.innerHTML=detail.Feeds[i].Title;
+                    adetail.href=detail.Feeds[i].Url;
+                    lidetail.appendChild(adetail);
+                    var uldetail = document.getElementsByClassName("ul_detail")[0];
+                    uldetail.appendChild(lidetail);
+                }
                 var yesterdayadd = document.getElementsByClassName("yesterdayadd")[0];
                 yesterdayadd.innerHTML="过去一天新增数: "+ detail.PastDayAdd;
-                var lidetails = document.getElementsByClassName("li_detail");
-                for (var i = 0; i < 20; i++) {
-                    lidetails[i].innerHTML=detail.Feeds[i].Title;
-                }
             }
 
 
