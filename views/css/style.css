@@ -74,6 +74,7 @@ body {
 
 .ak:hover{
 	color: rgba(15, 19, 15, 0.49);
+    cursor:pointer;
 }
 .al{
 	text-decoration: none;
