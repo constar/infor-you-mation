@@ -74,6 +74,7 @@ body {
 
 .ak:hover{
 	color: rgba(15, 19, 15, 0.49);
+    cursor:pointer;
 }
 .al{
 	text-decoration: none;
@@ -128,7 +129,7 @@ body {
 #ulmenu li {
 	float: left;
 	height: 20px;
-	width: 33.33%;
+	width: 50%;
 	padding-top:5px;
 	padding-bottom:5px;
 	text-align:center;
@@ -385,12 +386,8 @@ margin:0px;
 	width:100%;
 	padding:0;
 }
-.keyword_card{
-	position:relative;
-	float:left;
-    padding:0px;
-}
 .cardtopic{
+    float:left;
 	color:rgba(42, 88, 36, 0.55);
     font-size:20px;
 	margin:0px;

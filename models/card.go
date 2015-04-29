@@ -6,32 +6,19 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-type CardFlow struct {
-	Cards []*Card
-}
-
 type Card struct {
-	Topic        string
-	YesterdayAdd int
-	Feeds        []*Feed
+	Topic      string
+	PastDayAdd int
+	Feeds      []*BriefFeed
 }
 
-const CardFlowN = 2
-
-func GetHotCardFlows(row_num int) []*CardFlow {
+func GetHotCardFlows(row_num int) []*Card {
 	topics := GetHotTopics()
-	flows := make([]*CardFlow, CardFlowN)
-	for i := 0; i < len(flows); i++ {
-		flows[i] = &CardFlow{make([]*Card, 0)}
-	}
+	cards := make([]*Card, len(topics))
 	for i, topic := range topics {
-		j := i % len(flows)
-		c := GetCardByTopic(topic, row_num)
-		if c != nil {
-			flows[j].Cards = append(flows[j].Cards, c)
-		}
+		cards[i] = GetCardByTopic(topic, row_num)
 	}
-	return flows
+	return cards
 }
 
 func GetHotTopics() (topics []string) {
@@ -71,9 +58,9 @@ func GetCardByTopic(topic string, row_num int) *Card {
 		beego.Error(err)
 		return nil
 	}
-	c := Card{topic, GetYesterdayAddByKeyword(topic), make([]*Feed, 0)}
+	c := Card{topic, GetYesterdayAddByKeyword(topic), make([]*BriefFeed, 0)}
 	for i := 0; i < len(kfps); i++ {
-		feeds, err := GetFeedById(kfps[i].Feedid)
+		feeds, err := GetBriefFeedById(kfps[i].Feedid)
 		if err != nil {
 			beego.Error(err)
 			return nil
