@@ -1,9 +1,9 @@
 package main
 
 import (
-	_ "./routers"
 	"flag"
 	"github.com/astaxie/beego"
+	_ "github.com/lucky7ky/infor-you-mation/routers"
 )
 
 func main() {

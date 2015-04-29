@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"../models"
 	"encoding/json"
 	"github.com/astaxie/beego"
+	"github.com/lucky7ky/infor-you-mation/models"
 )
 
 type TrendController struct {

@@ -1,9 +1,9 @@
 package controllers
 
 import (
-	"../models"
 	"github.com/astaxie/beego"
 	"github.com/golang/glog"
+	"github.com/lucky7ky/infor-you-mation/models"
 	"github.com/yanyiwu/igo"
 )
 
