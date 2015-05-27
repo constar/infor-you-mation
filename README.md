@@ -4,13 +4,13 @@ Just a toy project, Codes are ugly. So don't smell it.
 
 ## Dependency
 
-+ [beego]
++ [express]
 
 ## Start
 
 ```
-make
-make run
+npm install
+npm start
 ```
 
 ## Contact
@@ -20,4 +20,4 @@ kaiyi0707@163.com
 i@yanyiwu.com
 ```
 
-[beego]:https://github.com/astaxie/beego.git
+[express]:https://github.com/strongloop/express
