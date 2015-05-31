@@ -441,4 +441,19 @@ margin:0px;
 .a_detail:hover{
 	color: rgba(202, 196, 196, 0.73);
 }
-
+.login-register-wrapper {
+    position:fixed;
+    top:200px;
+    right:20px;
+}
+.link-btn {
+    display:block;
+    width:60px;
+    height:30px;
+    margin-bottom:5px;
+    border-radius:5px;
+    background:white;
+    text-align:center;
+    line-height:30px;
+    text-decoration:none;
+}
