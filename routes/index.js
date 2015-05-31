@@ -13,4 +13,14 @@ router.get('/register', function(req, res, next) {
 router.get('/login', function(req, res, next) {
     res.render('login', { powerBy: 'Express'});
 })
+/* POST */
+router.post('/register', function(req, res, next) {
+    if (req.body.password != req.body.checkpassword) {
+        res.render('register', { powerBy: 'Express',display:'block' });
+
+    } else {
+        res.render('register', { powerBy: 'Express', display:'none' });
+    }
+})
 module.exports = router;
+
