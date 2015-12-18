@@ -1,43 +1,8 @@
 var app = angular.module("infor-you-mation",[]);
-app.controller("indexCtrl", function($scope){
-    $scope.lists = [{
-        'keyword':'PHP',
-        'arrs':[{
-            'text':'标题1',
-            'url':'http://baidu.com'
-        },{
-            'text':'标题2',
-            'url':'http://baidu.com'
-        },{
-            'text':'标题3',
-            'url':'http://baidu.com'
-        }]
-    },{
-        'keyword':'Java',
-        'arrs':[{
-            'text':'标题1',
-            'url':'http://baidu.com'
-        },{
-            'text':'标题2',
-            'url':'http://baidu.com'
-        },{
-            'text':'标题3',
-            'url':'http://baidu.com'
-        }]
-    },{
-        'keyword':'CSS',
-        'arrs':[{
-            'text':'标题1',
-            'url':'http://baidu.com'
-        },{
-            'text':'标题2',
-            'url':'http://baidu.com'
-        },{
-            'text':'标题3',
-            'url':'http://baidu.com'
-        },{
-            'text':'标题4',
-            'url':'http://baidu.com'
-        }]
-    }];
+app.controller("indexCtrl", function($scope, $http){
+        $http.get('/data')
+        .success(function(res){
+            $scope.lists = res;
+        })
 });
+
