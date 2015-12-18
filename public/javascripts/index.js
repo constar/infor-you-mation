@@ -1,4 +1,4 @@
-var app = angular.module("infor-u-mation",[]);
+var app = angular.module("infor-you-mation",[]);
 app.controller("indexCtrl", function($scope){
     $scope.lists = [{
         'keyword':'PHP',
