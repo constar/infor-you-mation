@@ -1,10 +1,43 @@
-var $ = require('jquery');
-var Ractive = require('ractive');
-var ractive = new Ractive({
-    el:$('.main-container'),
-    template:require('/partials/index.html'),
-    data:{
-        name:'hi',
-    }
-})
-alert('hi');
+var app = angular.module("infor-u-mation",[]);
+app.controller("indexCtrl", function($scope){
+    $scope.lists = [{
+        'keyword':'PHP',
+        'arrs':[{
+            'text':'标题1',
+            'url':'http://baidu.com'
+        },{
+            'text':'标题2',
+            'url':'http://baidu.com'
+        },{
+            'text':'标题3',
+            'url':'http://baidu.com'
+        }]
+    },{
+        'keyword':'Java',
+        'arrs':[{
+            'text':'标题1',
+            'url':'http://baidu.com'
+        },{
+            'text':'标题2',
+            'url':'http://baidu.com'
+        },{
+            'text':'标题3',
+            'url':'http://baidu.com'
+        }]
+    },{
+        'keyword':'CSS',
+        'arrs':[{
+            'text':'标题1',
+            'url':'http://baidu.com'
+        },{
+            'text':'标题2',
+            'url':'http://baidu.com'
+        },{
+            'text':'标题3',
+            'url':'http://baidu.com'
+        },{
+            'text':'标题4',
+            'url':'http://baidu.com'
+        }]
+    }];
+});
