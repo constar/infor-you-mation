@@ -23,11 +23,11 @@
                     <div class="card-wrapper" ng-repeat="x in lists">
                         <div ng-if="$even" class="card">
                             <div class="card__top">
-                                {{x.keyword}}
+                                {{x.topic}}
                             </div>
-                            <ul class="card__list" ng-repeat="x in x.arrs">
+                            <ul class="card__list" ng-repeat="x in x.jobs.slice(0,5)">
                                 <li class="card__list__item">
-                                {{x.text}}
+                                {{x.title}}
                                 </li>
                             </ul>
                         </div>
@@ -37,11 +37,11 @@
                     <div class="card-wrapper" ng-repeat="x in lists">
                         <div ng-if="$odd" class="card">
                             <div class="card__top">
-                                {{x.keyword}}
+                                {{x.topic}}
                             </div>
-                            <ul class="card__list" ng-repeat="x in x.arrs">
+                            <ul class="card__list" ng-repeat="x in x.jobs.slice(0,5)">
                                 <li class="card__list__item">
-                                {{x.text}}
+                                {{x.title}}
                                 </li>
                             </ul>
                         </div>

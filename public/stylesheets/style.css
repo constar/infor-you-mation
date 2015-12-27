@@ -70,8 +70,12 @@ body {
 }
 .card__list__item {
     border-bottom: 1px solid #EEE9E9;
-    padding:10px 20px;
+    padding: 15px 5%;
     color: #4D8057;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 @media screen and (max-width:980px){
     .cardflow-wrapper {
