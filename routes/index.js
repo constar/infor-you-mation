@@ -4,58 +4,19 @@ var redis = require('redis');
 var Promise = require('bluebird');
 client = redis.createClient();
 
-//var data = [{
-        //'keyword':'PHP',
-        //'arrs':[{
-            //'text':'标题1',
-            //'url':'http://baidu.com'
-        //},{
-            //'text':'标题2',
-            //'url':'http://baidu.com'
-        //},{
-            //'text':'标题3',
-            //'url':'http://baidu.com'
-        //}]
-    //},{
-        //'keyword':'Java',
-        //'arrs':[{
-            //'text':'标题1',
-            //'url':'http://baidu.com'
-        //},{
-            //'text':'标题2',
-            //'url':'http://baidu.com'
-        //},{
-            //'text':'标题3',
-            //'url':'http://baidu.com'
-        //}]
-    //},{
-        //'keyword':'CSS',
-        //'arrs':[{
-            //'text':'标题1',
-            //'url':'http://baidu.com'
-        //},{
-            //'text':'标题2',
-            //'url':'http://baidu.com'
-        //},{
-            //'text':'标题3',
-            //'url':'http://baidu.com'
-        //},{
-            //'text':'标题4',
-            //'url':'http://baidu.com'
-        //}]
-//}];
-
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index');
 });
-
+/* GET home data */
 router.get('/data', function(req, res, next) {
     var config = 10;
     var names = [];
     var joblists = [];
-    var jobIds =[];
+    var jobIds = [];
+    var jobTopics = [];
+    var jobTitles = [];
+    var jobUrls = [];
     var data = [];
     for (var i = 1; i <= config; i++) {
         names.push('topic:' + i + ':name');
@@ -70,35 +31,51 @@ router.get('/data', function(req, res, next) {
     } 
     Promise.all(joblists).then(function(value){
         jobIds = value;
-        Promise.all([getJobTopics(), getJobTitles()]).then(function(){
+        Promise.all([getTopics(), getJobs()]).then(function(){
+            for (var i = 0; i < jobTopics.length; i++) {
+                data.push({
+                    'topic':jobTopics[i],
+                    'jobs':[],
+                });
+            }
+            for (var i = 0; i < jobTitles.length; i++) {
+                for (var j = 0; j < jobTitles[i].length; j++) {
+                    data[i].jobs.push({
+                        'title':jobTitles[i][j],
+                        'url':jobUrls[i][j],
+                    });
+                }
+            }
             res.json(data);
         })
     })
-    function getJobTopics() {
+    function getTopics() {
         return new Promise(function(resolve, reject) {
             client.mget(names, function(err, reply){
                 for (var i = 0; i < reply.length; i++) {
-                    data.push({'topic':reply[i]});
+                    jobTopics.push(reply[i]);
                 } 
                 resolve();
             })
         })
     }
-    function getJobTitles() {
+    function getJobs() {
         return new Promise(function(resolve, reject) {
-            var jobIdKeyNames = [];
-            var count = 0;
+            var titleKeyNames = [];
+            var urlKeyNames = [];
             for (var i = 0; i < jobIds.length; i++) {
                 for (var j = 0; j < jobIds[i].length; j++) {
-                    jobIdKeyNames.push('job:' + jobIds[i][j] + ':title');
+                    titleKeyNames.push('job:' + jobIds[i][j] + ':title');
+                    urlKeyNames.push('job:' + jobIds[i][j] + ':url');
                 }
-                client.mget(jobIdKeyNames, function(err, reply) {
-                    for (var i = 0; i < reply.length; i++) {
-                        reply[i] = {'title':reply[i]};
-                    }
-                    data[count++].jobs = reply;
+                client.mget(titleKeyNames, function(err, reply) {
+                    jobTitles.push(reply); 
                 })
-                jobIdKeyNames = [];
+                client.mget(urlKeyNames, function(err, reply) {
+                    jobUrls.push(reply);
+                })
+                titleKeyNames = [];
+                urlKeyNames = [];
             }
             resolve();
         })

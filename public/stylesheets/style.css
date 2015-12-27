@@ -77,6 +77,10 @@ body {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.card__list__item a {
+    color:inherit;
+    text-decoration:none;
+}
 @media screen and (max-width:980px){
     .cardflow-wrapper {
         width:100%;
