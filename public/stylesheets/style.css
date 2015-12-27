@@ -32,6 +32,12 @@ body {
     margin:0 auto;
     padding:0;
 }
+.header__welcome {
+    text-align: center;
+    color: #85A68B;
+    font-size: 16px;
+    margin:0;
+}
 .header__nav__item {
     float:left;
     width:33%;
