@@ -6,6 +6,10 @@ app.config(['$routeProvider',
         templateUrl:'/pages/index.html',
         controller:'indexCtrl'
     })
+    .when('/login', {
+        templateUrl:'/pages/login.html',
+        controller:'loginCtrl'
+    })
     .when('/register', {
         templateUrl:'/pages/register.html',
         controller:'registerCtrl'
@@ -18,5 +22,7 @@ app.controller("indexCtrl", function($scope, $http){
     })
 });
 app.controller("registerCtrl", function($scope){
+});
+app.controller("loginCtrl", function($scope){
 });
 

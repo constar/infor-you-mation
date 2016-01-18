@@ -1,17 +1,17 @@
-.register-wrapper {
+.form-wrapper {
     width:30%;
     margin:100px auto;
     padding:30px 5%;
     border: 1px solid #C8CFC1;
     box-shadow: 0 0 10px #D4DED5;
 }
-.register__top {
+.form__top {
     font-size:18px;
     text-align:center;
     margin-bottom:30px;
     color:#8EAC93;
 }
-.register-wrapper .form__item input {
+.form-wrapper .form__item input {
     width: 90%;
     border: none;
     background: transparent;
@@ -40,12 +40,12 @@
     color:#8EAC93;
 }
 @media screen and (max-width:980px){
-    .register-wrapper {
+    .form-wrapper {
         width:60%;
     }
 }
 @media screen and (max-width:600px){
-    .register-wrapper {
+    .form-wrapper {
         width:80%;
         margin:50px auto;
     }
