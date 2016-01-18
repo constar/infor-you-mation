@@ -104,15 +104,3 @@ body {
         top:54px;
     }
 }
-@media screen and (max-device-width:980px){
-    .cardflow {
-        width:100%;
-    }
-    .header__logo-wrapper {
-        width:100%;
-        text-align:center;
-    }
-    .header__nav-wrapper {
-        top:54px;
-    }
-}
