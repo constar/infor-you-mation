@@ -58,18 +58,17 @@ body {
     color: #4D8057;
     font-weight: bold;
 }
+*/
 .cardflow-wrapper {
     width:80%;
     margin:50px auto;
     overflow:auto;
     zoom:1;
 }
-*/
+
 .cardflow {
     width:50%;
     float:left;
-}
-.card-wrapper {
 }
 .card {
     width:90%;
