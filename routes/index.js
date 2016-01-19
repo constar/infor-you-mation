@@ -22,16 +22,9 @@ router.get('/data', function(req, res, next) {
         names.push('topic:' + i + ':name');
         joblists.push(getJobIds('topic:' + i + ':joblist'));
     }
-    function getJobIds(keyname) {
-        return new Promise(function(resolve, reject) {
-            client.zrange(keyname, 0, -1, function(err, reply) {
-                resolve(reply);
-            })
-        })
-    } 
     Promise.all(joblists).then(function(value){
         jobIds = value;
-        Promise.all([getTopics(), getJobs()]).then(function(){
+        Promise.all([getTopics(names,jobTopics), getJobs(jobIds,jobTitles,jobUrls)]).then(function(){
             for (var i = 0; i < jobTopics.length; i++) {
                 data.push({
                     'topic':jobTopics[i],
@@ -49,40 +42,47 @@ router.get('/data', function(req, res, next) {
             res.json(data);
         })
     })
-    function getTopics() {
-        return new Promise(function(resolve, reject) {
-            client.mget(names, function(err, reply){
-                for (var i = 0; i < reply.length; i++) {
-                    jobTopics.push(reply[i]);
-                } 
-                resolve();
-            })
+
+});
+function getJobIds(keyname) {
+    return new Promise(function(resolve, reject) {
+        client.zrange(keyname, 0, -1, function(err, reply) {
+            resolve(reply);
         })
-    }
-    function getJobs() {
-        return new Promise(function(resolve, reject) {
-            var titleKeyNames = [];
-            var urlKeyNames = [];
-            for (var i = 0; i < jobIds.length; i++) {
-                for (var j = 0; j < jobIds[i].length; j++) {
-                    titleKeyNames.push('job:' + jobIds[i][j] + ':title');
-                    urlKeyNames.push('job:' + jobIds[i][j] + ':url');
-                }
-                client.mget(titleKeyNames, function(err, reply) {
-                    jobTitles.push(reply); 
-                })
-                client.mget(urlKeyNames, function(err, reply) {
-                    jobUrls.push(reply);
-                })
-                titleKeyNames = [];
-                urlKeyNames = [];
-            }
+    })
+} 
+function getTopics(names,jobTopics) {
+    return new Promise(function(resolve, reject) {
+        client.mget(names, function(err, reply){
+            for (var i = 0; i < reply.length; i++) {
+                jobTopics.push(reply[i]);
+            } 
             resolve();
         })
-    }
-
-//router.get('/:path', function(req, res, next) {
-  //res.render(req.params.path);
-//});
-});
+    })
+}
+function getJobs(jobIds,jobTitles,jobUrls) {
+    return new Promise(function(resolve, reject) {
+        var titleKeyNames = [];
+        var urlKeyNames = [];
+        for (var i = 0; i < jobIds.length; i++) {
+            for (var j = 0; j < jobIds[i].length; j++) {
+                titleKeyNames.push('job:' + jobIds[i][j] + ':title');
+                urlKeyNames.push('job:' + jobIds[i][j] + ':url');
+            }
+            client.mget(titleKeyNames, function(err, reply) {
+                jobTitles.push(reply); 
+            })
+            client.mget(urlKeyNames, function(err, reply) {
+                jobUrls.push(reply);
+            })
+            titleKeyNames = [];
+            urlKeyNames = [];
+        }
+        resolve();
+    })
+}
 module.exports = router;
+//router.get('/:path', function(req, res, next) {
+//res.render(req.params.path);
+//});
