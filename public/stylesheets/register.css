@@ -1,5 +1,6 @@
 .form-wrapper {
     width:30%;
+    max-width:400px;
     margin:100px auto;
     padding:30px 5%;
     border: 1px solid #C8CFC1;

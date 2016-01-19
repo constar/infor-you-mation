@@ -64,6 +64,7 @@ body {
     margin:50px auto;
     overflow:auto;
     zoom:1;
+    max-width:980px;
 }
 
 .cardflow {
