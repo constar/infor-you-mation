@@ -2,7 +2,7 @@
 
 ## 数据结构
 
-### Topic
+### Topic(只读)
 
 信息的展示是通过主题聚合，也可以说是订阅。
 
@@ -20,7 +20,7 @@
 |:-:|:-:|:-:|
 |`topic:nextid`|string|topic表的自增ID|
 
-### Job
+### Job(只读)
 
 目前的信息都是一切招聘信息，所以目前取名叫 job 作为表名。
 
@@ -39,7 +39,7 @@
 |:-:|:-:|:-:|
 |`job:nextid`|string|job表的自增ID|
 
-### User
+### User(读写)
 
 |key|type|description|
 |:-:|:-:|:-:|
