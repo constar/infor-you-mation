@@ -39,4 +39,17 @@
 |:-:|:-:|:-:|
 |`job:nextid`|string|job表的自增ID|
 
+### User
 
+|key|type|description|
+|:-:|:-:|:-:|
+|`user:<id>:username`|string|用户名|
+|`user:<id>:password`|string|密码|
+
+|key|type|description|
+|:-:|:-:|:-:|
+|`user:<username>:id`|string|username到id的反向映射，登录和注册时作为唯一索引来用|
+
+|key|type|description|
+|:-:|:-:|:-:|
+|`user:nextid`|string|user表的自增ID|
