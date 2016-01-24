@@ -1,9 +1,37 @@
 # api 接口说明
 
-## /topic
+目前接口都还比较粗糙，待完善。
 
-## /user/login
+## 首页展示主题内容
 
-## /user/register
+|uri|method|type|
+|:-:|:-:|:-:|
+|`/topic`|GET||
 
-## /captcha
+## 登录
+
+|uri|method|type|
+|:-:|:-:|:-:|
+|`/user/login`|POST|`x-www-form-urlencoded`|
+
+|key|description|
+|:-:|:-:|
+|username|用户名|
+|password|密码|
+
+## 注册
+
+|uri|method|type|
+|:-:|:-:|:-:|
+|`/user/register`|POST|`x-www-form-urlencoded`|
+
+|key|description|
+|:-:|:-:|
+|username|用户名|
+|password|密码|
+
+## 图片验证码
+
+|uri|method|
+|:-:|:-:|
+|`/captcha`|GET|
