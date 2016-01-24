@@ -5,8 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var routeIndex = require('./routes/index');
+var routeUser = require('./routes/user');
 var routeChaptcha = require('./routes/captcha');
 
 var app = express();
@@ -25,8 +25,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/users', users);
+app.use('/', routeIndex);
+app.use('/user', routeUser);
 app.use('/captcha', routeChaptcha);
 
 // catch 404 and forward to error handler
@@ -62,7 +62,7 @@ app.use(function(err, req, res, next) {
 
 var server = app.listen(3000, function() {
     var port = server.address().port;
-    console.log('listening at http://127.0.0.1:%d',port);
+    console.log('The server is now ready to accept connections on port ', port);
 })
 
 

@@ -46,7 +46,7 @@ router.get('/data', function(req, res, next) {
 });
 function getJobIds(keyname) {
     return new Promise(function(resolve, reject) {
-        client.zrevrange(keyname, 0, -1, function(err, reply) {
+        client.zrevrange(keyname, 0, 4, function(err, reply) {
             resolve(reply);
         })
     })
