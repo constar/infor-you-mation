@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
     res.render('index');
 });
 /* GET home data */
-router.get('/data', function(req, res, next) {
+router.get('/topic', function(req, res, next) {
     var config = 10;
     var names = [];
     var joblists = [];

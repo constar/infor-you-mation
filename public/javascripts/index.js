@@ -20,7 +20,7 @@ app.config(['$routeProvider',
     });
 }]);
 app.controller("indexCtrl", function($scope, $http){
-    $http.get('/data')
+    $http.get('/topic')
     .success(function(res){
         $scope.lists = res;
     })
