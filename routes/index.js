@@ -10,16 +10,23 @@ router.get('/', function(req, res, next) {
 });
 /* GET home data */
 router.get('/topic', function(req, res, next) {
-    var config = 10;
-
-    var promises = [];
-    for (var i = 1; i <= config; i++) {
-        promises.push(getTopicInfo(i));
-    }
-    Promise.all(promises).then(function (data) {
-        res.json(data);
+    getTopicMaxID().then(function(maxid) {
+        var promises = [];
+        for (var i = 1; i <= maxid; i++) {
+            promises.push(getTopicInfo(i));
+        }
+        Promise.all(promises).then(function (data) {
+            res.json(data);
+        });
     });
 });
+function getTopicMaxID() {
+    return new Promise(function(resolve) {
+        client.get("topic:nextid", function(err, reply) {
+            resolve(reply);
+        });
+    });
+}
 function getTopicInfo(topicid) {
     var topicinfo = {}
     return (new Promise(function(resolve) {
