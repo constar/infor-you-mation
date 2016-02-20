@@ -11,90 +11,57 @@ router.get('/', function(req, res, next) {
 /* GET home data */
 router.get('/topic', function(req, res, next) {
     var config = 10;
-    var names = [];
-    var joblists = [];
-    var jobTopics = [];
-    var jobTitles = [];
-    var jobUrls = [];
-    for (var i = 1; i <= config; i++) {
-        names.push('topic:' + i + ':name');
-        joblists.push(getJobIds('topic:' + i + ':joblist'));
-    }
-    Promise.all(joblists).then(function(value){
-        var jobIds = [];
-        for (var i = 0; i < value.length; i++) {
-            jobIds.push(value[i].jobids);
-        }
-        Promise.all([getTopics(names,jobTopics), getJobs(jobIds,jobTitles,jobUrls)]).then(function(){
-            var data = [];
-            for (var i = 0; i < jobTopics.length; i++) {
-                data.push({
-                    'topic':jobTopics[i],
-                    'total': value[i].total,
-                    'jobs':[],
-                });
-            }
-            for (var i = 0; i < jobTitles.length; i++) {
-                for (var j = 0; j < jobTitles[i].length; j++) {
-                    data[i].jobs.push({
-                        'title':jobTitles[i][j],
-                        'url':jobUrls[i][j],
-                    });
-                }
-            }
-            res.json(data);
-        })
-    })
 
-});
-function getJobIds(keyname) {
-    var p1 = new Promise(function(resolve) {
-        client.zrevrange(keyname, 0, 4, function(err, reply) {
-            resolve(reply);
-        });
+    var promises = [];
+    for (var i = 1; i <= config; i++) {
+        promises.push(getTopicInfo(i));
+    }
+    Promise.all(promises).then(function (data) {
+        res.json(data);
     });
-    var p2 = new Promise(function(resolve) {
-        p1.then(function(value) {
-            client.zcard(keyname, function(err, reply) {
-                resolve({'jobids': value, 'total': reply})
+});
+function getTopicInfo(topicid) {
+    var topicinfo = {}
+    return (new Promise(function(resolve) {
+        client.get("topic:" + topicid + ":name", function(err, reply) {
+            topicinfo.topic = reply;
+            resolve();
+        });
+    })).then(function() {
+        return new Promise(function(resolve) {
+            client.zcard('topic:' + topicid + ':joblist', function(err, reply) {
+                topicinfo.total = reply;
+                resolve();
             });
         });
-    });
-    return p2;
-} 
-
-function getTopics(names,jobTopics) {
-    return new Promise(function(resolve, reject) {
-        client.mget(names, function(err, reply){
-            for (var i = 0; i < reply.length; i++) {
-                jobTopics.push(reply[i]);
-            } 
-            resolve();
-        })
-    })
-}
-function getJobs(jobIds,jobTitles,jobUrls) {
-    return new Promise(function(resolve, reject) {
-        var titleKeyNames = [];
-        var urlKeyNames = [];
-        for (var i = 0; i < jobIds.length; i++) {
-            for (var j = 0; j < jobIds[i].length; j++) {
-                titleKeyNames.push('job:' + jobIds[i][j] + ':title');
-                urlKeyNames.push('job:' + jobIds[i][j] + ':url');
-            }
-            client.mget(titleKeyNames, function(err, reply) {
-                jobTitles.push(reply); 
-            })
-            client.mget(urlKeyNames, function(err, reply) {
-                jobUrls.push(reply);
-            })
-            titleKeyNames = [];
-            urlKeyNames = [];
+    }).then(function() {
+        return new Promise(function(resolve) {
+            client.zrevrange('topic:' + topicid + ':joblist', 0, 4, function(err, jobids) {
+                topicinfo.jobids = jobids;
+                resolve();
+            });
+        });
+    }).then(function() {
+        var promises = [];
+        for (var i = 0; i < topicinfo.jobids.length; i++) {
+            promises.push(getJobInfo(topicinfo.jobids[i]));
         }
-        resolve();
-    })
+        return Promise.all(promises);
+    }).then(function(jobinfos) {
+        delete topicinfo.jobids;
+        topicinfo.jobs = jobinfos;
+        return new Promise(function(resolve) {
+            resolve(topicinfo);
+        })
+    });
 }
+function getJobInfo(jobid) {
+    var p = new Promise(function(resolve) {
+        client.mget(["job:" + jobid + ":title", "job:" + jobid + ":url"], function(err, reply) {
+            resolve({"title": reply[0], "url": reply[1]});
+        });
+    });
+    return p;
+}
+
 module.exports = router;
-//router.get('/:path', function(req, res, next) {
-//res.render(req.params.path);
-//});
