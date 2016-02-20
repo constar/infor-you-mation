@@ -13,21 +13,24 @@ router.get('/topic', function(req, res, next) {
     var config = 10;
     var names = [];
     var joblists = [];
-    var jobIds = [];
     var jobTopics = [];
     var jobTitles = [];
     var jobUrls = [];
-    var data = [];
     for (var i = 1; i <= config; i++) {
         names.push('topic:' + i + ':name');
         joblists.push(getJobIds('topic:' + i + ':joblist'));
     }
     Promise.all(joblists).then(function(value){
-        jobIds = value;
+        var jobIds = [];
+        for (var i = 0; i < value.length; i++) {
+            jobIds.push(value[i].jobids);
+        }
         Promise.all([getTopics(names,jobTopics), getJobs(jobIds,jobTitles,jobUrls)]).then(function(){
+            var data = [];
             for (var i = 0; i < jobTopics.length; i++) {
                 data.push({
                     'topic':jobTopics[i],
+                    'total': value[i].total,
                     'jobs':[],
                 });
             }
@@ -45,12 +48,21 @@ router.get('/topic', function(req, res, next) {
 
 });
 function getJobIds(keyname) {
-    return new Promise(function(resolve, reject) {
+    var p1 = new Promise(function(resolve) {
         client.zrevrange(keyname, 0, 4, function(err, reply) {
             resolve(reply);
-        })
-    })
+        });
+    });
+    var p2 = new Promise(function(resolve) {
+        p1.then(function(value) {
+            client.zcard(keyname, function(err, reply) {
+                resolve({'jobids': value, 'total': reply})
+            });
+        });
+    });
+    return p2;
 } 
+
 function getTopics(names,jobTopics) {
     return new Promise(function(resolve, reject) {
         client.mget(names, function(err, reply){

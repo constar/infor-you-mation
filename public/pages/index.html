@@ -4,7 +4,7 @@
             <div class="card-wrapper" ng-repeat="x in lists">
                 <div ng-if="$even" class="card">
                     <div class="card__top">
-                        {{x.topic}}
+                        {{x.topic}} <span style="float:right"> Total: {{x.total}}</span>
                     </div>
                     <ul class="card__list" ng-repeat="x in x.jobs.slice(0,5)">
                         <li class="card__list__item">
@@ -18,7 +18,7 @@
             <div class="card-wrapper" ng-repeat="x in lists">
                 <div ng-if="$odd" class="card">
                     <div class="card__top">
-                        {{x.topic}}
+                        {{x.topic}} <span style="float:right"> Total: {{x.total}}</span>
                     </div>
                     <ul class="card__list" ng-repeat="x in x.jobs.slice(0,5)">
                         <li class="card__list__item">
