@@ -8,7 +8,8 @@
                     </div>
                     <ul class="card__list" ng-repeat="x in x.jobs.slice(0,5)">
                         <li class="card__list__item">
-                        <a href="{{x.url}}" target="_blank">{{x.title}}</a>
+                        <a href="{{x.url}}" target="_blank">
+                        <span style="margin: 0px 4px; padding: 0px 4px; background-color: rgba(234, 120, 30, 0.21); color: #1c2733;">{{x.source}}</span>{{x.title}}</a>
                         </li>
                     </ul>
                 </div>
@@ -22,7 +23,8 @@
                     </div>
                     <ul class="card__list" ng-repeat="x in x.jobs.slice(0,5)">
                         <li class="card__list__item">
-                        <a href="{{x.url}}" target="_blank">{{x.title}}</a>
+                        <a href="{{x.url}}" target="_blank">
+                        <span style="margin: 0px 4px; padding: 0px 4px; background-color: rgba(234, 120, 30, 0.21); color: #1c2733;">{{x.source}}</span>{{x.title}}</a>
                         </li>
                     </ul>
                 </div>
