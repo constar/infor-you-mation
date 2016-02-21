@@ -64,8 +64,8 @@ function getTopicInfo(topicid) {
 }
 function getJobInfo(jobid) {
     var p = new Promise(function(resolve) {
-        client.mget(["job:" + jobid + ":title", "job:" + jobid + ":url"], function(err, reply) {
-            resolve({"title": reply[0], "url": reply[1]});
+        client.mget(["job:" + jobid + ":title", "job:" + jobid + ":url", "job:" + jobid + ":source"], function(err, reply) {
+            resolve({"title": reply[0], "url": reply[1], "source": reply[2]});
         });
     });
     return p;
