@@ -60,10 +60,4 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var server = app.listen(3000, function() {
-    var port = server.address().port;
-    console.log('The server is now ready to accept connections on port ', port);
-})
-
-
 module.exports = app;

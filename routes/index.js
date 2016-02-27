@@ -57,9 +57,7 @@ function getTopicInfo(topicid) {
     }).then(function(jobinfos) {
         delete topicinfo.jobids;
         topicinfo.jobs = jobinfos;
-        return new Promise(function(resolve) {
-            resolve(topicinfo);
-        })
+        return topicinfo;
     });
 }
 function getJobInfo(jobid) {
