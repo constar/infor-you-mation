@@ -1,4 +1,4 @@
-var app = angular.module("infor-you-mation",['ngRoute']);
+var app = angular.module("infor-you-mation",['ngRoute','ngSanitize']);
 app.config(['$routeProvider',
     function($routeProvider) {
     $routeProvider
@@ -20,9 +20,20 @@ app.config(['$routeProvider',
     });
 }]);
 app.controller("indexCtrl", function($scope, $http){
+    $scope.isHide = true;
     $http.get('/topic')
     .success(function(res){
         $scope.lists = res;
+        $scope.showJobDetail = function(job){
+            $scope.isHide = !$scope.isHide;
+            $scope.content = job.content;
+            $scope.title = job.title;
+            $scope.source = job.source;
+            $scope.url = job.url;
+        }
+        $scope.close = function() {
+            $scope.isHide = true;
+        }
     })
 });
 app.controller("registerCtrl", function($scope){

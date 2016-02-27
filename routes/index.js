@@ -60,10 +60,11 @@ function getTopicInfo(topicid) {
         return topicinfo;
     });
 }
+
 function getJobInfo(jobid) {
     var p = new Promise(function(resolve) {
-        client.mget(["job:" + jobid + ":title", "job:" + jobid + ":url", "job:" + jobid + ":source"], function(err, reply) {
-            resolve({"title": reply[0], "url": reply[1], "source": reply[2]});
+        client.mget(["job:" + jobid + ":title", "job:" + jobid + ":content", "job:" + jobid + ":url", "job:" + jobid + ":source"], function(err, reply) {
+            resolve({"title": reply[0], "content": reply[1], "url": reply[2], "source": reply[3]});
         });
     });
     return p;

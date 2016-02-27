@@ -127,6 +127,46 @@ body {
 .footer__btn-wrapper a:first-child{
     border-right:1px solid #D6D6D6;
 }
+/*
+.maskLayer {
+    position: fixed;
+    top:0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(240, 243, 239);
+    z-index: 9999;
+    text-align: center;
+    padding: 100px;
+}
+*/
+.jobDetail-wrapper {
+    width:64%;
+    margin:50px auto;
+    max-width:980px;
+    padding: 10px 3%;
+    border: 1px solid gainsboro;
+    position:relative;
+}
+.close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #85A68B;
+    cursor:pointer;
+    outline:none;
+}
+.jobDetail__top {
+    padding:10px 20px;
+    background-color:rgba(201, 224, 179, 0.3);
+    font-size:16px;
+    font-weight:bold;
+}
+.jobDetail__content {
+    padding:10px 20px;
+    margin:10px 0;
+}
 @media screen and (max-width:980px){
     .cardflow-wrapper {
         width:100%;
@@ -149,6 +189,9 @@ body {
     }
     .footer__btn-wrapper {
         display:block;
+    }
+    .jobDetail-wrapper {
+        width:90%;
     }
 }
 
