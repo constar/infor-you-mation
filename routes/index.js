@@ -20,6 +20,13 @@ router.get('/topic', function(req, res, next) {
         });
     });
 });
+
+router.get('/job/:id', function(req, res) {
+    getJobInfo(req.params.id, true).then(function (jobinfo) {
+        res.json(jobinfo);
+    });
+});
+
 function getTopicMaxID() {
     return new Promise(function(resolve) {
         client.get("topic:nextid", function(err, reply) {
@@ -61,11 +68,21 @@ function getTopicInfo(topicid) {
     });
 }
 
-function getJobInfo(jobid) {
+function getJobInfo(jobid, withcontent) {
     var p = new Promise(function(resolve) {
-        client.mget(["job:" + jobid + ":title", "job:" + jobid + ":content", "job:" + jobid + ":url", "job:" + jobid + ":source"], function(err, reply) {
-            resolve({"title": reply[0], "content": reply[1], "url": reply[2], "source": reply[3]});
-        });
+        var titlekey = "job:" + jobid + ":title";
+        var urlkey = "job:" + jobid + ":url";
+        var sourcekey = "job:" + jobid + ":source";
+        var contentkey = "job:" + jobid + ":content";
+        if (withcontent) {
+            client.mget([titlekey, urlkey, sourcekey, contentkey], function(err, reply) {
+                resolve({"id": jobid, "title": reply[0], "url": reply[1], "source": reply[2], "content": reply[3]});
+            });
+        } else {
+            client.mget([titlekey, urlkey, sourcekey], function(err, reply) {
+                resolve({"id": jobid, "title": reply[0], "url": reply[1], "source": reply[2]});
+            });
+        }
     });
     return p;
 }

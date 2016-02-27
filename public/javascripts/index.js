@@ -25,11 +25,13 @@ app.controller("indexCtrl", function($scope, $http){
     .success(function(res){
         $scope.lists = res;
         $scope.showJobDetail = function(job){
-            $scope.isHide = !$scope.isHide;
-            $scope.content = job.content;
-            $scope.title = job.title;
-            $scope.source = job.source;
-            $scope.url = job.url;
+            $http.get('/job/' + job.id).success(function(res) {
+                $scope.title = job.title;
+                $scope.source = job.source;
+                $scope.url = job.url;
+                $scope.content = res.content; //TODO
+                $scope.isHide = !$scope.isHide;
+            });
         }
         $scope.close = function() {
             $scope.isHide = true;
