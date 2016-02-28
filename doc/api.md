@@ -8,6 +8,7 @@
 |:-:|:-:|
 |`/topic`|GET|
 |`/job/:id`|GET|
+|`/user?sid=<sid>`|GET|
 
 ## 登录
 
