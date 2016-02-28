@@ -63,7 +63,14 @@ router.post('/login', function(req, res) {
         }
         client.get('user:' + id + ':password', function(err, reply) {
             if (password == reply) {
-                res.send({'msg': 'login ok'});
+                req.sessionStore.set(req.sessionID, req.session, function(err) {
+                    if (err) {
+                        res.send({'error': err});
+                    } else {
+                        res.cookie('SESSIONID', req.sessionID, req.session.cookie);
+                        res.send({'msg': 'login ok'});
+                    }
+                });
             } else {
                 res.send({'error': 'password error'});
             }

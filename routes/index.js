@@ -6,6 +6,16 @@ client = redis.createClient();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    //console.log(req);
+    //req.sessionStore.all(function(err, sessions) {
+    //    console.log(err);
+    //    console.log(sessions);
+    //});
+    //console.log(req.sessionID);
+    //console.log(req.session.id);
+    //console.log(req.session);
+    //console.log(req.cookies);
+    //console.log(req.cookies.testxx);
     res.render('index');
 });
 /* GET home data */
