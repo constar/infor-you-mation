@@ -24,12 +24,12 @@ router.post('/register', function(req, res) {
             return;
         }
         if (reply) {
-            res.send({'error': 'username: ' + username + " already exists"});
+            res.send({'error': 'username: ' + username + " already exists", 'success': false});
             return;
         } 
         client.incr('user:nextid', function(err, newid) {
             if (err) {
-                res.send({'error': err});
+                res.send({'error': err, 'success': false});
                 return;
             }
             client.mset(['user:' + newid + ':username', 
@@ -40,10 +40,10 @@ router.post('/register', function(req, res) {
                 newid], 
                 function(err) {
                     if (err) {
-                        res.send({'error': err});
+                        res.send({'error': err, 'success': false});
                         return;
                     }
-                    res.send({'msg': 'register ok'});
+                    res.send({'msg': 'register ok', 'success': true});
             });
         });
     });
@@ -63,9 +63,9 @@ router.post('/login', function(req, res) {
         }
         client.get('user:' + id + ':password', function(err, reply) {
             if (password == reply) {
-                res.send({'msg': 'login ok'});
+                res.send({'msg': 'login ok', 'success': true});
             } else {
-                res.send({'error': 'password error'});
+                res.send({'error': 'password error', 'success': false});
             }
         });
     });
