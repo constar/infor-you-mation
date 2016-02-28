@@ -21,6 +21,7 @@ app.config(['$routeProvider',
 }]);
 app.controller("indexCtrl", function($scope, $http){
     $scope.isHide = true;
+    $scope.err = false;
     $http.get('/topic')
     .success(function(res){
         $scope.lists = res;
@@ -38,7 +39,19 @@ app.controller("indexCtrl", function($scope, $http){
         }
     })
 });
-app.controller("registerCtrl", function($scope){
+app.controller("registerCtrl", function($scope, $http){
+    $scope.submit = function() {
+        $http.post('/user/register', $scope.user)
+        .success(function(res){
+            if(res.success){
+                $scope.err = false;
+                alert('注册成功！欢迎加入邮订阅！');
+            } else {
+                //$scope.err = res.error;
+                $scope.err = '用户名已存在！';
+            }
+        })
+    }
 });
 app.controller("loginCtrl", function($scope){
 });

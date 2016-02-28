@@ -21,6 +21,9 @@
     outline: none;
     padding:15px 5%;
 }
+.form-wrapper .form__item {
+    position:relative;
+}
 .form__btn {
     display:block;
     width:80%;
@@ -29,9 +32,13 @@
     line-height:30px;
     border: 1px solid #C8CFC1;
     color:#8EAC93;
-    font-size:16px;
+    font-size:14px;
     outline:none;
     border-radius:5px;
+    cursor:pointer;
+}
+.form__btn:disabled {
+    cursor:not-allowed;
 }
 .form__hint {
     text-align:center;
@@ -39,6 +46,19 @@
 }
 .form__hint a {
     color:#8EAC93;
+}
+.form__err {
+    text-align:center;
+    background:rgba(201, 224, 179, 0.3);
+    padding: 5px;
+    color: #ACADAB;
+}
+.errMsg {
+    color:rgb(179, 144, 144);
+    font-size:14px;
+    position:absolute;
+    right:10px;
+    top:15px;
 }
 @media screen and (max-width:980px){
     .form-wrapper {
