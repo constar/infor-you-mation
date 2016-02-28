@@ -4,9 +4,10 @@
 
 ## 首页展示主题内容
 
-|uri|method|type|
-|:-:|:-:|:-:|
-|`/topic`|GET||
+|uri|method|
+|:-:|:-:|
+|`/topic`|GET|
+|`/job/:id`|GET|
 
 ## 登录
 
