@@ -1,15 +1,16 @@
 <div class="form-wrapper">
     <div class="form__top">立即登录邮订阅</div>
-    <form>
+    <form name="loginForm" ng-submit="submit()">
+        <div class="form__err" ng-show="err">{{err}}</div>
         <div class="form__item">
-            <input type="text" placeholder="用户名"/>
-            <span class="errMsg"></span>
+            <input name="username" required ng-model="user.username" type="text" placeholder="用户名"/>
+            <span class="errMsg" ng-show="loginForm.username.$dirty&&loginForm.username.$error.required">请输入用户名</span>
         </div>
         <div class="form__item">
-            <input type="password" placeholder="密码"/>
-            <span class="errMsg"></span>
+            <input name="password" required ng-model="user.password" type="password" placeholder="密码"/>
+            <span class="errMsg" ng-show="loginForm.password.$dirty&&loginForm.password.$error.required">请输入密码</span>
         </div>
-        <button class="form__btn">提交</button>
+        <button class="form__btn" ng-disabled="loginForm.$invalid">提交</button>
         <p class="form__hint">还没有账号？<a href="/#/register">立即注册→</a></p>
     </form>
 </div>
