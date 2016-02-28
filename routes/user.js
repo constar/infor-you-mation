@@ -43,6 +43,7 @@ router.post('/register', function(req, res) {
                         res.send({'error': err, 'success': false});
                         return;
                     }
+                    res.cookie('SESSIONID', req.sessionID, req.session.cookie);
                     res.send({'msg': 'register ok', 'success': true});
             });
         });
