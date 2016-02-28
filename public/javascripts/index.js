@@ -21,7 +21,6 @@ app.config(['$routeProvider',
 }]);
 app.controller("indexCtrl", function($scope, $http){
     $scope.isHide = true;
-    $scope.err = false;
     $http.get('/topic')
     .success(function(res){
         $scope.lists = res;
@@ -40,6 +39,7 @@ app.controller("indexCtrl", function($scope, $http){
     })
 });
 app.controller("registerCtrl", function($scope, $http){
+    $scope.err = false;
     $scope.submit = function() {
         $http.post('/user/register', $scope.user)
         .success(function(res){
@@ -53,7 +53,19 @@ app.controller("registerCtrl", function($scope, $http){
         })
     }
 });
-app.controller("loginCtrl", function($scope){
+app.controller("loginCtrl", function($scope, $http){
+    $scope.err = false;
+    $scope.submit = function() {
+        $http.post('user/login', $scope.user)
+        .success(function(res){
+            if (res.success) {
+                $scope.err = false;
+                alert('登录成功！');
+            } else {
+                $scope.err = "用户名或密码错误！"
+            }
+        })
+    }
 });
 app.controller("homeCtrl", function($scope){
 });
