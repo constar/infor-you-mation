@@ -167,6 +167,9 @@ body {
     padding:10px 20px;
     margin:10px 0;
 }
+#cardTotal {
+    display:none;
+}
 @media screen and (max-width:980px){
     .cardflow-wrapper {
         width:100%;
@@ -175,6 +178,10 @@ body {
 @media screen and (max-width:720px){
     .cardflow {
         width:100%;
+        display:none;
+    }
+    #cardTotal {
+        display:block;
     }
     .header__logo-wrapper {
         width:100%;
