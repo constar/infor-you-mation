@@ -43,6 +43,7 @@ router.post('/register', function(req, res) {
                         res.send({'error': err, 'success': false});
                         return;
                     }
+                    res.cookie('SESSIONID', req.sessionID, req.session.cookie);
                     res.send({'msg': 'register ok', 'success': true});
             });
         });
@@ -63,7 +64,14 @@ router.post('/login', function(req, res) {
         }
         client.get('user:' + id + ':password', function(err, reply) {
             if (password == reply) {
-                res.send({'msg': 'login ok', 'success': true});
+                req.sessionStore.set(req.sessionID, req.session, function(err) {
+                    if (err) {
+                        res.send({'error': err, 'success': false});
+                    } else {
+                        res.cookie('SESSIONID', req.sessionID, req.session.cookie);
+                        res.send({'msg': 'login ok', 'success': true});
+                    }
+                });
             } else {
                 res.send({'error': 'password error', 'success': false});
             }
