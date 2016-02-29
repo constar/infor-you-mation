@@ -1,4 +1,4 @@
-var app = angular.module("infor-you-mation",['ngRoute','ngSanitize']);
+var app = angular.module("infor-you-mation",['ngRoute','ngSanitize','ngCookies']);
 app.config(['$routeProvider',
     function($routeProvider) {
     $routeProvider
@@ -19,8 +19,9 @@ app.config(['$routeProvider',
         controller:'homeCtrl'
     });
 }]);
-app.controller("indexCtrl", function($scope, $http){
+app.controller("indexCtrl", ['$scope', '$http', '$cookies', function($scope, $http, $cookies){
     $scope.isHide = true;
+    //$scope.test = getCookie("SESSIONID");
     $http.get('/topic')
     .success(function(res){
         $scope.lists = res;
@@ -37,7 +38,7 @@ app.controller("indexCtrl", function($scope, $http){
             $scope.isHide = true;
         }
     })
-});
+}]);
 app.controller("registerCtrl", function($scope, $http){
     $scope.err = false;
     $scope.submit = function() {
@@ -69,4 +70,3 @@ app.controller("loginCtrl", function($scope, $http){
 });
 app.controller("homeCtrl", function($scope){
 });
-
