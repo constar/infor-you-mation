@@ -64,6 +64,7 @@ router.post('/login', function(req, res) {
         }
         client.get('user:' + id + ':password', function(err, reply) {
             if (password == reply) {
+                req.session.userid = id;
                 req.sessionStore.set(req.sessionID, req.session, function(err) {
                     if (err) {
                         res.send({'error': err, 'success': false});

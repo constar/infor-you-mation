@@ -8,6 +8,19 @@ client = redis.createClient();
 router.get('/', function(req, res, next) {
     res.render('index');
 });
+
+router.get('/user', function(req, res, next) {
+    req.sessionStore.get(req.cookies['SESSIONID'], function(err, sess) {
+        if (sess && sess.userid) {
+            getUser(sess.userid).then(function(userinfo) {
+                res.json(userinfo);
+            });
+        } else {
+            res.json({});
+        }
+    });
+});
+
 /* GET home data */
 router.get('/topic', function(req, res, next) {
     getTopicMaxID().then(function(maxid) {
@@ -65,6 +78,18 @@ function getTopicInfo(topicid) {
         delete topicinfo.jobids;
         topicinfo.jobs = jobinfos;
         return topicinfo;
+    });
+}
+
+function getUser(userid) {
+    return new Promise(function(resolve) {
+        client.mget(['user:' + userid + ':username'], function (err, reply) {
+            if (err) {
+                resolve({});
+                return
+            }
+            resolve({'userid': userid, 'username': reply[0]});
+        });
     });
 }
 
