@@ -14,8 +14,13 @@
             <div class="header__nav-wrapper">
                 <h1 class="header__welcome"> Hello, 欢迎来到邮订阅~</h1>
                 <div class="header__btn-wrapper">
-                    <a href="/#/login">登录</a>
-                    <a href="/#/register">注册</a>
+                    <div ng-if="isLogin" style="text-align:center">
+                        <a href="/#/home" style="width:100%">Home</a>
+                    </div>
+                    <div ng-if="!isLogin">
+                        <a href="/#/login">登录</a>
+                        <a href="/#/register">注册</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -23,8 +28,13 @@
             <div ng-view></div>
         </div>
         <div class="footer__btn-wrapper">
-            <a href="/#/login">登录</a>
-            <a href="/#/register">注册</a>
+            <div ng-if="isLogin">
+                <a href="/#/home" style="width:100%">Home</a>
+            </div>
+            <div ng-if="!isLogin">
+                <a href="/#/login">登录</a>
+                <a href="/#/register">注册</a>
+            </div>
         </div>
     </body>
 </html>

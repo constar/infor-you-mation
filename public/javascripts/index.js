@@ -19,9 +19,9 @@ app.config(['$routeProvider',
         controller:'homeCtrl'
     });
 }]);
-app.controller("indexCtrl", ['$scope', '$http', '$cookies', function($scope, $http, $cookies){
+app.controller("indexCtrl", ['$scope', '$http', '$cookies', '$rootScope', function($scope, $http, $cookies, $rootScope){
     $scope.isHide = true;
-    //$scope.test = getCookie("SESSIONID");
+    $rootScope.isLogin = $cookies.SESSIONID;
     $http.get('/topic')
     .success(function(res){
         $scope.lists = res;
