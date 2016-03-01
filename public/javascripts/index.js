@@ -21,7 +21,11 @@ app.config(['$routeProvider',
 }]);
 app.controller("indexCtrl", ['$scope', '$http', '$cookies', '$rootScope', function($scope, $http, $cookies, $rootScope){
     $scope.isHide = true;
-    $rootScope.isLogin = $cookies.SESSIONID;
+    $http.get('/user')
+    .success(function(res) {
+        $rootScope.isLogin = res.userid;
+    });
+    
     $http.get('/topic')
     .success(function(res){
         $scope.lists = res;

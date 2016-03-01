@@ -10,14 +10,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/user', function(req, res, next) {
-    req.sessionStore.get(req.cookies['SESSIONID'], function(err, sess) {
-        if (sess && sess.userid) {
-            getUser(sess.userid).then(function(userinfo) {
-                res.json(userinfo);
-            });
-        } else {
-            res.json({});
-        }
+    getUser(req.session.userid)
+    .then(function(userinfo) {
+        res.json(userinfo);
     });
 });
 
