@@ -67,9 +67,8 @@ router.post('/login', function(req, res) {
                 req.session.regenerate(function() {
                     req.session.userid = id;
                     req.session.save();
-                    //res.redirect('/');
+                    res.send({'msg': 'login ok', 'success': true});
                 });
-                res.send({'msg': 'login ok', 'success': true});
             } else {
                 res.send({'error': 'password error', 'success': false});
             }
