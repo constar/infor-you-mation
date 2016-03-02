@@ -41,7 +41,13 @@ app.controller("indexCtrl", ['$scope', '$http', '$cookies', '$rootScope', functi
         $scope.close = function() {
             $scope.isHide = true;
         }
-    })
+    });
+    
+    $rootScope.logout = function() {
+        $http.post('/user/logout').success(function(res) {
+            $rootScope.isLogin = !res.success;
+        });
+    }
 }]);
 app.controller("registerCtrl", function($scope, $http){
     $scope.err = false;
@@ -61,11 +67,11 @@ app.controller("registerCtrl", function($scope, $http){
 app.controller("loginCtrl", function($scope, $http){
     $scope.err = false;
     $scope.submit = function() {
-        $http.post('user/login', $scope.user)
+        $http.post('/user/login', $scope.user)
         .success(function(res){
             if (res.success) {
                 $scope.err = false;
-                alert('登录成功！');
+                window.location.href = "/";
             } else {
                 $scope.err = "用户名或密码错误！"
             }

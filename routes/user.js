@@ -76,4 +76,11 @@ router.post('/login', function(req, res) {
     });
 });
 
+router.post('/logout', function(req, res) {
+    res.clearCookie('connect.sid');
+    req.session.destroy(function() {
+        res.send({'success': true});
+    });
+});
+
 module.exports = router;
