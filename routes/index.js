@@ -18,14 +18,21 @@ router.get('/user', function(req, res, next) {
 
 /* GET home data */
 router.get('/topic', function(req, res, next) {
+    var limit = 5;
     getTopicMaxID().then(function(maxid) {
         var promises = [];
         for (var i = 1; i <= maxid; i++) {
-            promises.push(getTopicInfo(i));
+            promises.push(getTopicInfo(i, limit));
         }
         Promise.all(promises).then(function (data) {
             res.json(data);
         });
+    });
+});
+
+router.get('/topic/:id', function(req, res, next) {
+    getTopicInfo(req.params.id).then(function (info) {
+        res.json(info);
     });
 });
 
@@ -42,7 +49,7 @@ function getTopicMaxID() {
         });
     });
 }
-function getTopicInfo(topicid) {
+function getTopicInfo(topicid, limit) {
     var topicinfo = {}
     return (new Promise(function(resolve) {
         client.get("topic:" + topicid + ":name", function(err, reply) {
@@ -58,7 +65,8 @@ function getTopicInfo(topicid) {
         });
     }).then(function() {
         return new Promise(function(resolve) {
-            client.zrevrange('topic:' + topicid + ':joblist', 0, 4, function(err, jobids) {
+            var lim = limit || 0;
+            client.zrevrange('topic:' + topicid + ':joblist', 0, lim - 1, function(err, jobids) {
                 topicinfo.jobids = jobids;
                 resolve();
             });
