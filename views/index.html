@@ -17,8 +17,9 @@
                 <h1 class="header__welcome"> Hello, 欢迎来到邮订阅~</h1>
                 <div class="header__btn-wrapper">
                     <div ng-if="isLogin" style="text-align:center">
-                        <button ng-click="">主页</button>
-                        <button ng-click="logout()">退出</button>
+                        <a href="/#">我的主页</a>
+                        <a href="/#">关于我们</a>
+                        <button  ng-click="logout()">退出</button>
                     </div>
                     <div ng-if="!isLogin">
                         <a href="/#/login">登录</a>
@@ -30,16 +31,19 @@
         <div id="main">
             <div ng-view></div>
         </div>
-        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257728289'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257728289%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
         <div class="footer__btn-wrapper">
             <div ng-if="isLogin">
-                <a href="/#/home" style="width:100%">Home</a>
+                <a class="isLogin" href="/#">首页</a>
+                <a class="isLogin" href="/#">关于</a>
+                <a class="isLogin" href="/#">我的</a>
+                <button class="isLogin" ng-click="logout()">退出</button>
             </div>
             <div ng-if="!isLogin">
                 <a href="/#/login">登录</a>
                 <a href="/#/register">注册</a>
             </div>
         </div>
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257728289'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257728289%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
     </body>
 </html>
 <script src="javascripts/angular/angular.min.js"></script>

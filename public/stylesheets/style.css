@@ -38,12 +38,21 @@ body {
     right:20px;
     top:0;
 }
-.header__btn-wrapper a{
-    color: #8C8A8A;
+.header__btn-wrapper a {
+    color: #97B39C;
     text-decoration: none;
     margin-right: 10px;
-    background-color: rgba(241, 238, 238, 0.88);
-    padding: 5px;
+    font-size:14px;
+}
+.header__btn-wrapper button{
+    color: #97B39C;
+    font-size:14px;
+    margin-right: 10px;
+    margin-right: 10px;
+    background:none;
+    border:none;
+    outline:none;
+    cursor:pointer;
 }
 /*
 .header__nav {
@@ -133,8 +142,22 @@ body {
     color:#88A88E;
     text-decoration:none;
 }
-.footer__btn-wrapper a:first-child{
+.footer__btn-wrapper a:not(:last-child){
     border-right:1px solid #D6D6D6;
+}
+.footer__btn-wrapper button {
+    background:none;
+    border:none;
+    outline:none;
+    display:block;
+    float:left;
+    line-height:30px;
+    font-size:16px;
+    color:#88A88E;
+    cursor:pointer;
+}
+.footer__btn-wrapper .isLogin {
+    width:24.74%;
 }
 #cardTotal {
     display:none;
