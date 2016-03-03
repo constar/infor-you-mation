@@ -17,32 +17,25 @@ app.config(['$routeProvider',
     .when('/home', {
         templateUrl:'/pages/home.html',
         controller:'homeCtrl'
+    })
+    .when('/detail/:id', {
+        templateUrl:'/pages/detail.html',
+        controller:'detailCtrl'
+    })
+    .when('/list/:topicId', {
+        templateUrl:'/pages/list.html',
+        controller:'listCtrl'
     });
 }]);
 app.controller("indexCtrl", ['$scope', '$http', '$cookies', '$rootScope', function($scope, $http, $cookies, $rootScope){
-    $scope.isHide = true;
     $http.get('/user')
     .success(function(res) {
         $rootScope.isLogin = res.userid;
     });
-    
     $http.get('/topic')
     .success(function(res){
         $scope.lists = res;
-        $scope.showJobDetail = function(job){
-            $http.get('/job/' + job.id).success(function(res) {
-                $scope.title = job.title;
-                $scope.source = job.source;
-                $scope.url = job.url;
-                $scope.content = res.content; //TODO
-                $scope.isHide = !$scope.isHide;
-            });
-        }
-        $scope.close = function() {
-            $scope.isHide = true;
-        }
     });
-    
     $rootScope.logout = function() {
         $http.post('/user/logout').success(function(res) {
             $rootScope.isLogin = !res.success;
@@ -78,5 +71,20 @@ app.controller("loginCtrl", function($scope, $http){
         })
     }
 });
+app.controller("detailCtrl", ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+    $http.get('/job/' + $routeParams.id).success(function(res) {
+        $scope.title = res.title;
+        $scope.source = res.source;
+        $scope.url = res.url;
+        $scope.content = res.content;
+    });
+}]);
+app.controller("listCtrl", ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams){
+    $http.get('/topic/' + $routeParams.topicId).success(function(res) {
+        $scope.topic = res.topic;
+        $scope.total = res.total;
+        $scope.jobs = res.jobs;
+    });
+}]);
 app.controller("homeCtrl", function($scope){
 });

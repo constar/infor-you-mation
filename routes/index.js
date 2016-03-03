@@ -50,7 +50,7 @@ function getTopicMaxID() {
     });
 }
 function getTopicInfo(topicid, limit) {
-    var topicinfo = {}
+    var topicinfo = {'topicId': topicid}
     return (new Promise(function(resolve) {
         client.get("topic:" + topicid + ":name", function(err, reply) {
             topicinfo.topic = reply;

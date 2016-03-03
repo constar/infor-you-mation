@@ -93,16 +93,25 @@ body {
 }
 .card__list__item {
     border-bottom: 1px solid #EEE9E9;
-    padding: 15px 5%;
+    padding:15px 5%;
     color: #4D8057;
     width: 90%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    cursor:pointer;
 }
-.card__list__item a {
+.card a {
     color:inherit;
     text-decoration:none;
+}
+.source {
+    padding: 0 4px;
+    background: rgba(234,120,30,0.21);
+    color:#1c2733;
+}
+.total {
+    float:right;
 }
 .footer__btn-wrapper {
     display:none;
@@ -127,6 +136,9 @@ body {
 .footer__btn-wrapper a:first-child{
     border-right:1px solid #D6D6D6;
 }
+#cardTotal {
+    display:none;
+}
 /*
 .maskLayer {
     position: fixed;
@@ -140,36 +152,6 @@ body {
     padding: 100px;
 }
 */
-.jobDetail-wrapper {
-    width:64%;
-    margin:50px auto;
-    max-width:980px;
-    padding: 10px 3%;
-    border: 1px solid gainsboro;
-    position:relative;
-}
-.close {
-    background: none;
-    border: none;
-    font-size: 18px;
-    margin-bottom: 10px;
-    color: #85A68B;
-    cursor:pointer;
-    outline:none;
-}
-.jobDetail__top {
-    padding:10px 20px;
-    background-color:rgba(201, 224, 179, 0.3);
-    font-size:16px;
-    font-weight:bold;
-}
-.jobDetail__content {
-    padding:10px 20px;
-    margin:10px 0;
-}
-#cardTotal {
-    display:none;
-}
 @media screen and (max-width:980px){
     .cardflow-wrapper {
         width:100%;
@@ -196,9 +178,6 @@ body {
     }
     .footer__btn-wrapper {
         display:block;
-    }
-    .jobDetail-wrapper {
-        width:90%;
     }
 }
 

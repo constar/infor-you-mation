@@ -1,0 +1,45 @@
+.jobList-wrapper {
+    width:64%;
+    margin:50px auto;
+    max-width:980px;
+    padding: 20px 3%;
+    /*border: 1px solid gainsboro;*/
+    position:relative;
+}
+.jobList__top {
+    padding:10px 20px;
+    background-color:rgba(201, 224, 179, 0.3);
+    font-size:16px;
+    font-weight:bold;
+}
+.jobList {
+    padding:0;
+    margin:10px 0;
+    list-style:none;
+    /*background-color:rgba(250, 248, 248, 0.51);*/
+}
+.jobList__item {
+    padding: 15px 5%;
+    color: #4D8057;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border: 1px solid rgba(250, 248, 248,0.51);
+}
+.jobList__item:hover {
+    background:rgba(250, 248, 248,0.51);
+}
+.jobList__item a {
+    color:inherit;
+    text-decoration:none;
+}
+@media screen and (max-width:720px){
+    .jobList-wrapper {
+        width:90%;
+    }
+}
+
+

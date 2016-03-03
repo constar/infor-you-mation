@@ -1,0 +1,12 @@
+<div class="jobList-wrapper">
+    <div class="jobList__top">
+        {{topic}}
+        <span class="total"> Total: {{total}}</span>
+    </div>
+    <ul class="jobList">
+        <li class="jobList__item" ng-repeat="job in jobs">
+        <span class="source">{{job.source}}</span>
+        <a href="/#/detail/{{job.id}}">{{job.title}}</a>
+        </li>
+    </ul>
+</div>
