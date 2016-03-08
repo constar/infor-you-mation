@@ -1,5 +1,11 @@
 # infor-you-mation
 
+[![Build Status](https://travis-ci.org/constar/infor-you-mation.png?branch=master)](https://travis-ci.org/constar/infor-you-mation)
+[![Author](https://img.shields.io/badge/author-@constar-blue.svg?style=flat)](https://github.com/constar) 
+[![Code Climate](https://codeclimate.com/github/constar/infor-you-mation/badges/gpa.svg)](https://codeclimate.com/github/constar/infor-you-mation)
+[![License](https://img.shields.io/badge/license-MIT-yellow.svg?style=flat)](http://constar.mit-license.org)
+[![Platform](https://img.shields.io/badge/platform-Linux,%20OS%20X,%20Windows-green.svg?style=flat)](https://github.com/constar/infor-you-mation)
+
 ![logo](http://7xloce.com1.z0.glb.clouddn.com/udylogo.png)
 
 ## 简介
