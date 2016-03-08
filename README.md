@@ -24,7 +24,7 @@
 
 + Node.js
 + Express
-+ AngularJs
++ AngularJs1
 + Redis
 + OpenSource
 
