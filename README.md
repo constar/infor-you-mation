@@ -47,6 +47,7 @@ git clone https://github.com/constar/infor-you-mation.git
 ```
 cd infor-you-mation
 npm install
+bower install
 PORT=3001 node ./bin/www
 ```
 
