@@ -25,6 +25,9 @@ app.config(['$routeProvider',
     .when('/list/:topicId', {
         templateUrl:'/pages/list.html',
         controller:'listCtrl'
+    })
+    .otherwise({
+        redirectTo: '/'
     });
 }]);
 app.controller("indexCtrl", ['$scope', '$http', '$cookies', '$rootScope', function($scope, $http, $cookies, $rootScope){
