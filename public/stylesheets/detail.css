@@ -16,6 +16,9 @@
 .jobDetail {
     margin-top:10px;
 }
+.jobDetail img {
+    max-width:100%;
+}
 .jobDetail__top {
     padding:10px 20px;
     background-color:rgba(201, 224, 179, 0.3);
