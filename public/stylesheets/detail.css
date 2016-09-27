@@ -14,7 +14,8 @@
     cursor:pointer;
 }
 .jobDetail {
-    margin-top:10px;
+    margin-top: 10px;
+    word-break: break-all;
 }
 .jobDetail img {
     max-width:100%;
