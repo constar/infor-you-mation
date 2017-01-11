@@ -17,6 +17,7 @@
     "express-session": "^1.13.0",
     "jade": "~1.11.0",
     "jquery": "^2.1.4",
+    "libird": "0.0.1",
     "morgan": "~1.6.1",
     "ractive": "^0.7.3",
     "redis": "^2.4.2",
