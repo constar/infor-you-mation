@@ -17,7 +17,16 @@ router.get('/topic', function(req, res) {
         res.send(data);
     });
 })
-
+router.get('/topic/:id', function(req, res, next) {
+    getTopicInfo(req.params.id).then(function (info) {
+        res.send(info);
+    });
+});
+router.get('/job/:id', function(req, res) {
+    getJobInfo(req.params.id, true).then(function (jobinfo) {
+        res.send(jobinfo);
+    });
+});
 function getTopicMaxID() {
     return new Promise(function(resolve) {
         client.get("topic:nextid", function(err, reply) {
