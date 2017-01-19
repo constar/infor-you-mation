@@ -5,6 +5,86 @@ client = redis.createClient();
 var router = libird.router;
 
 libird.setDirPath('./app');
+//router.get('/user', function(req, res, next) {
+    //getUser(req.session.userid)
+    //.then(function(userinfo) {
+        //res.json(userinfo);
+    //});
+//});
+router.post('/user/register', function(req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    if (!username) {
+        res.send({'error': 'username not found'}, 'json');
+        return;
+    }
+    if (!password) {
+        res.send({'error': 'password not found'}, 'json');
+        return;
+    }
+    
+    client.get('user:' + username + ':id', function(err, reply) {
+        if (err) {
+            res.send({'error': err}, 'json');
+            return;
+        }
+        if (reply) {
+            res.send({'error': 'username: ' + username + " already exists", 'success': false}, 'json');
+            return;
+        } 
+        client.incr('user:nextid', function(err, newid) {
+            if (err) {
+                res.send({'error': err, 'success': false}, 'json');
+                return;
+            }
+            client.mset(['user:' + newid + ':username', 
+                username,
+                'user:' + newid + ':password',
+                password,
+                'user:' + username + ':id',
+                newid], 
+                function(err) {
+                    if (err) {
+                        res.send({'error': err, 'success': false}, 'json');
+                        return;
+                    }
+                    //res.cookie('SESSIONID', req.sessionID, req.session.cookie);
+                    res.send({'msg': 'register ok', 'success': true}, 'json');
+            });
+        });
+    });
+});
+router.post('/user/login', function(req, res) {
+    var username = req.body.username;
+    var password = req.body.password;
+    client.get('user:' + username + ':id', function(err, id) {
+        if (err) {
+            res.send({'error': err}, 'json');
+            return;
+        }
+        if (!id) {
+            res.send({'error': 'username: ' + username + ' not found'}, 'json');
+            return;
+        }
+        client.get('user:' + id + ':password', function(err, reply) {
+            if (password == reply) {
+                //req.session.regenerate(function() {
+                    //req.session.userid = id;
+                    //req.session.save();
+                    res.send({'msg': 'login ok', 'success': true}, 'json');
+                //});
+            } else {
+                res.send({'error': 'password error', 'success': false}, 'json');
+            }
+        });
+    });
+});
+router.post('/user/logout', function(req, res) {
+    res.clearCookie('connect.sid');
+    req.session.destroy(function() {
+        res.send({'success': true}, 'json');
+    });
+});
 router.get('/topic', function(req, res) {
     var limit = 5;
     getTopicMaxID().then(function(maxid) {
@@ -14,17 +94,17 @@ router.get('/topic', function(req, res) {
         }
         return Promise.all(promises);
     }).then(function (data) {
-        res.send(data);
+        res.send(data, 'json');
     });
 })
-router.get('/topic/:id', function(req, res, next) {
+router.get('/topic/:id', function(req, res) {
     getTopicInfo(req.params.id).then(function (info) {
-        res.send(info);
+        res.send(info, 'json');
     });
 });
 router.get('/job/:id', function(req, res) {
     getJobInfo(req.params.id, true).then(function (jobinfo) {
-        res.send(jobinfo);
+        res.send(jobinfo, 'json');
     });
 });
 function getTopicMaxID() {
