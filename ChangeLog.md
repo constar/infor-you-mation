@@ -1,3 +1,0 @@
-# ChangeLog
-
-## first version
