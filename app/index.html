@@ -16,16 +16,12 @@
             <div class="header__nav-wrapper">
                 <h1 class="header__welcome"> Hello, 欢迎来到邮订阅~</h1>
                 <div class="header__btn-wrapper">
-                    <!--<div ng-if="isLogin" style="text-align:center">-->
-                        <!--<a href="/#/">我的主页</a>-->
-                        <!--<a href="/#/">关于我们</a>-->
-                        <!--<button  ng-click="logout()">退出</button>-->
-                    <!--</div>-->
-                    <!--<div ng-if="!isLogin">-->
-                        <!--<a href="/#/login">登录</a>-->
-                        <!--<a href="/#/register">注册</a>-->
-                    <!--</div>-->
-                    <div>
+                    <div ng-if="isLogin" style="text-align:center">
+                        <a href="/#/">我的主页</a>
+                        <a href="/#/">关于我们</a>
+                        <button  ng-click="logout()">退出</button>
+                    </div>
+                    <div ng-if="!isLogin">
                         <a href="/#/login">登录</a>
                         <a href="/#/register">注册</a>
                     </div>

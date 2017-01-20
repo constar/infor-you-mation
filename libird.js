@@ -5,12 +5,12 @@ client = redis.createClient();
 var router = libird.router;
 
 libird.setDirPath('./app');
-//router.get('/user', function(req, res, next) {
-    //getUser(req.session.userid)
-    //.then(function(userinfo) {
-        //res.json(userinfo);
-    //});
-//});
+router.get('/user', function(req, res) {
+    getUser(req.getCookie('userId'))
+    .then(function(userinfo) {
+        res.send(userinfo, 'json');
+    });
+});
 router.post('/user/register', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
@@ -71,6 +71,7 @@ router.post('/user/login', function(req, res) {
                 //req.session.regenerate(function() {
                     //req.session.userid = id;
                     //req.session.save();
+                    res.setCookie('userId', id);
                     res.send({'msg': 'login ok', 'success': true}, 'json');
                 //});
             } else {
@@ -80,10 +81,8 @@ router.post('/user/login', function(req, res) {
     });
 });
 router.post('/user/logout', function(req, res) {
-    res.clearCookie('connect.sid');
-    req.session.destroy(function() {
-        res.send({'success': true}, 'json');
-    });
+    res.clearCookie('userId');
+    res.send({'success': true}, 'json');
 });
 router.get('/topic', function(req, res) {
     var limit = 5;
