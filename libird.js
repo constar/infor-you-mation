@@ -6,7 +6,7 @@ var router = libird.router;
 
 libird.setDirPath('./app');
 router.get('/user', function(req, res) {
-    getUser(req.getCookie('userId'))
+    getUser(req.getSession('userid'))
     .then(function(userinfo) {
         res.send(userinfo, 'json');
     });
@@ -48,7 +48,7 @@ router.post('/user/register', function(req, res) {
                         res.send({'error': err, 'success': false}, 'json');
                         return;
                     }
-                    //res.cookie('SESSIONID', req.sessionID, req.session.cookie);
+                    res.setCookie('userid', newid);
                     res.send({'msg': 'register ok', 'success': true}, 'json');
             });
         });
@@ -68,12 +68,8 @@ router.post('/user/login', function(req, res) {
         }
         client.get('user:' + id + ':password', function(err, reply) {
             if (password == reply) {
-                //req.session.regenerate(function() {
-                    //req.session.userid = id;
-                    //req.session.save();
-                    res.setCookie('userId', id);
+                    res.setCookie('userid', id);
                     res.send({'msg': 'login ok', 'success': true}, 'json');
-                //});
             } else {
                 res.send({'error': 'password error', 'success': false}, 'json');
             }
@@ -81,7 +77,7 @@ router.post('/user/login', function(req, res) {
     });
 });
 router.post('/user/logout', function(req, res) {
-    res.clearCookie('userId');
+    res.clearCookie('userid');
     res.send({'success': true}, 'json');
 });
 router.get('/topic', function(req, res) {
