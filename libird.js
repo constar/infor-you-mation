@@ -8,33 +8,33 @@ libird.setDirPath('./app');
 router.get('/user', function(req, res) {
     getUser(req.getSession('userid'))
     .then(function(userinfo) {
-        res.send(userinfo, 'json');
+        res.send(userinfo);
     });
 });
 router.post('/user/register', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
     if (!username) {
-        res.send({'error': 'username not found'}, 'json');
+        res.send({'error': 'username not found'});
         return;
     }
     if (!password) {
-        res.send({'error': 'password not found'}, 'json');
+        res.send({'error': 'password not found'});
         return;
     }
     
     client.get('user:' + username + ':id', function(err, reply) {
         if (err) {
-            res.send({'error': err}, 'json');
+            res.send({'error': err});
             return;
         }
         if (reply) {
-            res.send({'error': 'username: ' + username + " already exists", 'success': false}, 'json');
+            res.send({'error': 'username: ' + username + " already exists", 'success': false});
             return;
         } 
         client.incr('user:nextid', function(err, newid) {
             if (err) {
-                res.send({'error': err, 'success': false}, 'json');
+                res.send({'error': err, 'success': false});
                 return;
             }
             client.mset(['user:' + newid + ':username', 
@@ -45,11 +45,11 @@ router.post('/user/register', function(req, res) {
                 newid], 
                 function(err) {
                     if (err) {
-                        res.send({'error': err, 'success': false}, 'json');
+                        res.send({'error': err, 'success': false});
                         return;
                     }
                     res.setCookie('userid', newid);
-                    res.send({'msg': 'register ok', 'success': true}, 'json');
+                    res.send({'msg': 'register ok', 'success': true});
             });
         });
     });
@@ -59,26 +59,26 @@ router.post('/user/login', function(req, res) {
     var password = req.body.password;
     client.get('user:' + username + ':id', function(err, id) {
         if (err) {
-            res.send({'error': err}, 'json');
+            res.send({'error': err});
             return;
         }
         if (!id) {
-            res.send({'error': 'username: ' + username + ' not found'}, 'json');
+            res.send({'error': 'username: ' + username + ' not found'});
             return;
         }
         client.get('user:' + id + ':password', function(err, reply) {
             if (password == reply) {
                     res.setCookie('userid', id);
-                    res.send({'msg': 'login ok', 'success': true}, 'json');
+                    res.send({'msg': 'login ok', 'success': true});
             } else {
-                res.send({'error': 'password error', 'success': false}, 'json');
+                res.send({'error': 'password error', 'success': false});
             }
         });
     });
 });
 router.post('/user/logout', function(req, res) {
     res.clearCookie('userid');
-    res.send({'success': true}, 'json');
+    res.send({'success': true});
 });
 router.get('/topic', function(req, res) {
     var limit = 5;
@@ -89,17 +89,17 @@ router.get('/topic', function(req, res) {
         }
         return Promise.all(promises);
     }).then(function (data) {
-        res.send(data, 'json');
+        res.send(data);
     });
 })
 router.get('/topic/:id', function(req, res) {
     getTopicInfo(req.params.id).then(function (info) {
-        res.send(info, 'json');
+        res.send(info);
     });
 });
 router.get('/job/:id', function(req, res) {
     getJobInfo(req.params.id, true).then(function (jobinfo) {
-        res.send(jobinfo, 'json');
+        res.send(jobinfo);
     });
 });
 function getTopicMaxID() {
