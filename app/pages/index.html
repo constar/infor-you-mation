@@ -1,7 +1,7 @@
 <div class="main-container">
     <div class="cardflow-wrapper">
         <div class="cardflow">
-            <div class="card-wrapper" ng-repeat="x in lists | orderBy:'total':true">
+            <div class="card-wrapper" ng-repeat="x in lists | orderBy:'total':true | filter: {total : '!0'}">
                 <div ng-if="$even" class="card">
                     <div class="card__top">
                         <a href="/#/list/{{x.topicId}}">{{x.topic}}</a> <span class="total"> Total: {{x.total}}</span>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="cardflow">
-            <div class="card-wrapper" ng-repeat="x in lists | orderBy:'total':true">
+            <div class="card-wrapper" ng-repeat="x in lists | orderBy:'total':true | filter: {total : '!0'}">
                 <div ng-if="$odd" class="card">
                     <div class="card__top">
                         <a href="/#/list/{{x.topicId}}">{{x.topic}}</a> <span class="total"> Total: {{x.total}}</span>
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="cardflow" id="cardTotal">
-            <div class="card-wrapper" ng-repeat="x in lists | orderBy:'total':true">
+            <div class="card-wrapper" ng-repeat="x in lists | orderBy:'total':true | filter: {total : '!0'}">
                 <div  class="card">
                     <div class="card__top">
                         <a href="/#/list/{{x.topicId}}">{{x.topic}}</a> <span class="total"> Total: {{x.total}}</span>
