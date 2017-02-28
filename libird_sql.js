@@ -91,10 +91,10 @@ router.post('/user/logout', function(req, res) {
 
 router.get('/topic', function(req, res) {
     var limit = 5;
-    getTopicMaxID().then(function(maxid) {
+    getTopicId().then(function(topicIds) {
         var promises = [];
-        for (var i = 1; i <= maxid; i++) {
-            promises.push(getTopicInfo(i, limit));
+        for (var i = 0; i < topicIds.length; i++) {
+            promises.push(getTopicInfo(topicIds[i], limit));
         }
         return Promise.all(promises);
     }).then(function (data) {
@@ -111,14 +111,18 @@ router.get('/job/:id', function(req, res) {
         res.send(jobinfo);
     });
 });
-function getTopicMaxID() {
+function getTopicId() {
     return new Promise(function(resolve) {
-        var countSql = 'select count(id) as maxID from topics';
-        connection.query(countSql, function(err, rows, field) {
+        var getTopicIdSql = 'select id from topics';
+        connection.query(getTopicIdSql, function(err, rows, field) {
             if (err) {
                 console.log(err);
             } else {
-                resolve(rows[0].maxID);
+                var topicIds = [];
+                for(var i = 0; i < rows.length; i++) {
+                    topicIds.push(rows[i].id);
+                    resolve(topicIds);
+                }
             }
         })
     });
@@ -138,8 +142,9 @@ function getTopicInfo(topicid, limit) {
         })
     })).then(function(topic) {
         return new Promise(function(resolve) {
-            var getJobIdSql = 'select jobid from jobs_topic where topic = ?';
-            var getJobIdSql_Params = [topic];
+            var max = 500;
+            var getJobIdSql = 'select jobid from jobs_topic where topic = ? order by modify_time limit ?';
+            var getJobIdSql_Params = [topic, max];
             connection.query(getJobIdSql, getJobIdSql_Params, function(err, rows, field) {
                 if (err) {
                     console.log(err);

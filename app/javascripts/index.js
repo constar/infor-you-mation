@@ -35,6 +35,9 @@ app.controller("indexCtrl", ['$scope', '$http', '$cookies', '$rootScope', functi
     $http.get('/topic')
     .success(function(res){
         $scope.lists = res;
+        $scope.notEmpty = function(item) {
+            return item.total != 0;
+        }
     });
     $rootScope.logout = function() {
         $http.post('/user/logout').success(function(res) {
