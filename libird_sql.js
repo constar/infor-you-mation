@@ -129,48 +129,54 @@ function getTopicId() {
 }
 function getTopicInfo(topicid, limit) {
     var topicinfo = {'topicId': topicid}
-    return (new Promise(function(resolve) {
+    return new Promise (function(resolve) {
         var getNameSql = 'select name from topics where id = ?';
         var getNameSql_Params = [topicid];
         connection.query(getNameSql, getNameSql_Params, function(err, rows, field) {
             if (err) {
                 console.log(err);
-            } else {
+            } else if (rows.length) {
                 topicinfo.topic = rows[0].name;
                 resolve(rows[0].name);
+            } else {
+                resolve();
             }
         })
-    })).then(function(topic) {
-        return new Promise(function(resolve) {
-            var max = 500;
-            var getJobIdSql = 'select jobid from jobs_topic where topic = ? order by modify_time limit ?';
-            var getJobIdSql_Params = [topic, max];
-            connection.query(getJobIdSql, getJobIdSql_Params, function(err, rows, field) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    var total = rows.length;
-                    topicinfo.total = total;
-                    if(limit) {
-                        total = total < limit ? total : limit; 
+    }).then(function(topic) {
+        if(topic) {
+            return new Promise(function(resolve) {
+                var max = 500;
+                var getJobIdSql = 'select jobid from jobs_topic where topic = ? order by modify_time limit ?';
+                var getJobIdSql_Params = [topic, max];
+                connection.query(getJobIdSql, getJobIdSql_Params, function(err, rows, field) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        var total = rows.length;
+                        topicinfo.total = total;
+                        if(limit) {
+                            total = total < limit ? total : limit; 
+                        }
+                        var jobIds = [];
+                        for (var i = 0; i < total; i++) {
+                            jobIds.push(rows[i].jobid);
+                        }
+                        resolve(jobIds);
                     }
-                    var jobIds = [];
-                    for (var i = 0; i < total; i++) {
-                        jobIds.push(rows[i].jobid);
-                    }
-                    resolve(jobIds);
+                })
+            }).then(function(jobIds) {
+                var promises = [];
+                for (var i = 0; i < jobIds.length; i++) {
+                    promises.push(getJobInfo(jobIds[i]));
                 }
-            })
-        });
-    }).then(function(jobIds) {
-        var promises = [];
-        for (var i = 0; i < jobIds.length; i++) {
-            promises.push(getJobInfo(jobIds[i]));
+                return Promise.all(promises);
+            }).then(function(jobinfos) {
+                topicinfo.jobs = jobinfos;
+                return topicinfo;
+            });
+        } else {
+            return 'topic not found';
         }
-        return Promise.all(promises);
-    }).then(function(jobinfos) {
-        topicinfo.jobs = jobinfos;
-        return topicinfo;
     });
 }
 
@@ -185,12 +191,14 @@ function getJobInfo(jobid, withcontent) {
         connection.query(getJobInfoSql, getJobInfoSql_Params, function(err, rows, field) {
             if (err) {
                 console.log(err);
-            } else {
+            } else if (rows.length){
                 if (withcontent) {
                     resolve({"id": jobid, "title": rows[0].title, "url": rows[0].url, "source": rows[0].source, "content": rows[0].content});
                 } else {
                     resolve({"id": jobid, "title": rows[0].title, "url": rows[0].url, "source": rows[0].source});
                 }
+            } else {
+                resolve('jobid not found')
             }
         })
     });
