@@ -52,7 +52,8 @@ app.controller("registerCtrl", function($scope, $http){
         .success(function(res){
             if(res.success){
                 $scope.err = false;
-                alert('注册成功！欢迎加入邮订阅！');
+                window.location.href = "/";
+                //alert('注册成功！欢迎加入邮订阅！');
             } else {
                 $scope.err = '用户名已存在！';
             }

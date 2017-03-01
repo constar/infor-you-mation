@@ -1,8 +1,7 @@
 var libird = require('libird');
 var Promise = require('bluebird');
 var mysql = require('mysql');
-var redis = require('redis');
-client = redis.createClient();
+var crypto = require('crypto');
 var router = libird.router;
 
 var connection = mysql.createConnection({
@@ -14,81 +13,69 @@ var connection = mysql.createConnection({
 
 libird.setDirPath('./app');
 router.get('/user', function(req, res) {
-    getUser(req.getSession('userid'))
-    .then(function(userinfo) {
-        res.send(userinfo);
-    });
+    var userid = req.getSession('userid');
+    if (!userid) {
+        res.send({});
+    } else {
+        getUser(userid)
+        .then(function(userinfo) {
+            res.send(userinfo);
+        });
+    }
 });
 router.post('/user/register', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    if (!username) {
-        res.send({'error': 'username not found'});
-        return;
-    }
-    if (!password) {
-        res.send({'error': 'password not found'});
-        return;
-    }
-    
-    client.get('user:' + username + ':id', function(err, reply) {
+    var checkUserSql = 'select userid from users where username = ?';
+    var checkUserSql_Params = [username];
+    connection.query(checkUserSql, checkUserSql_Params, function(err, rows, fields) {
         if (err) {
+            console.log(err);
             res.send({'error': err});
-            return;
-        }
-        if (reply) {
+        } else if (rows.length) {
             res.send({'error': 'username: ' + username + " already exists", 'success': false});
-            return;
-        } 
-        client.incr('user:nextid', function(err, newid) {
-            if (err) {
-                res.send({'error': err, 'success': false});
-                return;
-            }
-            client.mset(['user:' + newid + ':username', 
-                username,
-                'user:' + newid + ':password',
-                password,
-                'user:' + username + ':id',
-                newid], 
-                function(err) {
-                    if (err) {
-                        res.send({'error': err, 'success': false});
-                        return;
-                    }
-                    res.setCookie('userid', newid);
+        } else {
+            var str = username + new Date().getTime();
+            var userid = crypto.createHash('md5').update(str).digest('hex');
+            var pwd = crypto.createHash('md5').update(password).digest('hex');
+            var addUserSql = 'insert into users (userid, username, password) values (?, ?, ?)';
+            var addUserSql_Params = [userid, username, pwd];
+            connection.query(addUserSql, addUserSql_Params, function(err, rows, field) {
+                if(err) {
+                    console.log(err);
+                    res.send({'error': err});
+                } else {
+                    res.setCookie('userid', userid);
                     res.send({'msg': 'register ok', 'success': true});
-            });
-        });
-    });
+                }
+            })
+        }
+    })
 });
 router.post('/user/login', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
-    client.get('user:' + username + ':id', function(err, id) {
+    var pwd = crypto.createHash('md5').update(password).digest('hex');
+    var getUserSql = 'select userid, password from users where username = ?';
+    var getUserSql_Params = [username];
+    connection.query(getUserSql, getUserSql_Params, function(err, rows, fields) {
         if (err) {
+            console.log(err);
             res.send({'error': err});
-            return;
+        } else if(!rows.length) {
+            res.send({'error': 'username ' + username + ' not found'});
+        } else if (pwd != rows[0].password) {
+            res.send({'error': 'password error', 'success': false});
+        } else {
+            res.setCookie('userid', rows[0].userid);
+            res.send({'msg': 'login ok', 'success': true});
         }
-        if (!id) {
-            res.send({'error': 'username: ' + username + ' not found'});
-            return;
-        }
-        client.get('user:' + id + ':password', function(err, reply) {
-            if (password == reply) {
-                    res.setCookie('userid', id);
-                    res.send({'msg': 'login ok', 'success': true});
-            } else {
-                res.send({'error': 'password error', 'success': false});
-            }
-        });
-    });
+    })
 });
 router.post('/user/logout', function(req, res) {
     res.clearCookie('userid');
     res.send({'success': true});
 });
-
 router.get('/topic', function(req, res) {
     var limit = 5;
     getTopicId().then(function(topicIds) {
@@ -114,7 +101,7 @@ router.get('/job/:id', function(req, res) {
 function getTopicId() {
     return new Promise(function(resolve) {
         var getTopicIdSql = 'select id from topics';
-        connection.query(getTopicIdSql, function(err, rows, field) {
+        connection.query(getTopicIdSql, function(err, rows, fields) {
             if (err) {
                 console.log(err);
             } else {
@@ -132,7 +119,7 @@ function getTopicInfo(topicid, limit) {
     return new Promise (function(resolve) {
         var getNameSql = 'select name from topics where id = ?';
         var getNameSql_Params = [topicid];
-        connection.query(getNameSql, getNameSql_Params, function(err, rows, field) {
+        connection.query(getNameSql, getNameSql_Params, function(err, rows, fields) {
             if (err) {
                 console.log(err);
             } else if (rows.length) {
@@ -148,7 +135,7 @@ function getTopicInfo(topicid, limit) {
                 var max = 500;
                 var getJobIdSql = 'select jobid from jobs_topic where topic = ? order by modify_time limit ?';
                 var getJobIdSql_Params = [topic, max];
-                connection.query(getJobIdSql, getJobIdSql_Params, function(err, rows, field) {
+                connection.query(getJobIdSql, getJobIdSql_Params, function(err, rows, fields) {
                     if (err) {
                         console.log(err);
                     } else {
@@ -179,7 +166,6 @@ function getTopicInfo(topicid, limit) {
         }
     });
 }
-
 function getJobInfo(jobid, withcontent) {
     return  new Promise(function(resolve) {
         if (withcontent) {
@@ -188,7 +174,7 @@ function getJobInfo(jobid, withcontent) {
             var getJobInfoSql = 'select title,source,url from jobs where jobid = ?';
         }
         var getJobInfoSql_Params = [jobid];
-        connection.query(getJobInfoSql, getJobInfoSql_Params, function(err, rows, field) {
+        connection.query(getJobInfoSql, getJobInfoSql_Params, function(err, rows, fields) {
             if (err) {
                 console.log(err);
             } else if (rows.length){
@@ -204,14 +190,19 @@ function getJobInfo(jobid, withcontent) {
     });
 }
 function getUser(userid) {
+    if(userid)
     return new Promise(function(resolve) {
-        client.mget(['user:' + userid + ':username'], function (err, reply) {
+        var getUserSql = 'select username from users where userid = ?';
+        var getUserSql_Params = [userid];
+        connection.query(getUserSql, getUserSql_Params, function(err, rows, fields) {
             if (err) {
+                console.log(err);
+            } else if (rows.length){
+                resolve({'userid': userid, 'username': rows[0].username});
+            } else {
                 resolve({});
-                return
             }
-            resolve({'userid': userid, 'username': reply[0]});
-        });
+        })
     });
 }
 
