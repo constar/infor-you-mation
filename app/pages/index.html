@@ -6,8 +6,8 @@
                     <div class="card__top">
                         <a href="/#/list/{{x.topicId}}">{{x.topic}}</a> <span class="total"> Total: {{x.total}}</span>
                     </div>
-                    <ul class="card__list" ng-repeat="x in x.jobs">
-                        <li class="card__list__item">
+                    <ul class="card__list">
+                        <li class="card__list__item" ng-repeat="x in x.jobs">
                         <span class="source">{{x.source}}</span>
                         <a href="/#/detail/{{x.id}}">{{x.title}}</a>
                         </li>
