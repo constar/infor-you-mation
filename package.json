@@ -3,17 +3,29 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./libird.js",
+    "start": "node ./bin/www",
     "test": "./node_modules/grunt-cli/bin/grunt"
   },
   "dependencies": {
     "bluebird": "^3.1.1",
-    "jquery": "^2.1.4",
-    "libird": "^1.0.2",
-    "mysql": "^2.13.0",
-    "redis": "^2.4.2"
+    "body-parser": "~1.13.2",
+    "captchapng": "0.0.1",
+    "cookie-parser": "~1.3.5",
+    "debug": "~2.2.0",
+    "ejs": "^2.3.4",
+    "express": "~4.13.1",
+    "express-session": "^1.13.0",
+    "jade": "~1.11.0",
+    "jquery": "^3.0.0",
+    "morgan": "~1.6.1",
+    "ractive": "^0.7.3",
+    "redis": "^2.4.2",
+    "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
-    "bower": "^1.7.7"
+    "bower": "^1.7.7",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^1.0.0"
   }
 }
