@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "./node_modules/grunt-cli/bin/grunt"
+    "test": "node -v"
   },
   "dependencies": {
     "bluebird": "^3.1.1",
